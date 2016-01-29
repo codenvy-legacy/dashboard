@@ -1,0 +1,61 @@
+{
+  "name": "codenvy-dashboard",
+  "version": "4.0.0-beta",
+  "dependencies": {
+    "angular": "~1.4.8",
+    "angular-animate": "~1.4.8",
+    "angular-bootstrap": "~0.13.0",
+    "angular-card": "0.1.0",
+    "angular-charts": "0.2.6",
+    "che-dashboard": "https://github.com/codenvy/che-dashboard.git#UD-996",
+    "angular-cookies": "~1.4.8",
+    "angular-dropdowns": "~1.0.0",
+    "angular-filter": "~0.5.4",
+    "angular-gravatar": "~0.2.4",
+    "angular-material": "~1.0.1",
+    "angular-moment": "~0.9.0",
+    "angular-messages": "~1.4.8",
+    "angular-mocks": "~1.4.8",
+    "angular-resource": "~1.4.8",
+    "angular-route": "~1.4.8",
+    "angular-sanitize": "~1.4.8",
+    "angular-touch": "~1.4.8",
+    "angular-ui-codemirror": "~0.3.0",
+    "angular-websocket": "~1.0.9",
+    "bootstrap-stylus": "~4.0.2",
+    "braintree-angular": "~1.2.6",
+    "card": "1.0.0",
+    "font-awesome": "~4.5.0",
+    "google-material-color": "~1.2.0",
+    "jsonlint": "~1.6.0",
+    "ng-clip": "~0.2.6",
+    "ng-lodash": "~0.2.3",
+    "ng-password-strength": "~0.1.0",
+    "zeroclipboard": "~2.2.0",
+    "angular-uuid4": "~0.3.0",
+    "angular-file-upload": "~2.0.0"
+  },
+  "devDependencies": {
+  },
+  "resolutions": {
+    "angular": "~1.4.8"
+  },
+  "overrides": {
+    "card": {
+      "main": "lib/js/jquery.card.js"
+    },
+    "font-awesome": {
+      "main": [
+        "./css/font-awesome.css",
+        "./fonts/*"
+      ]
+    },
+    "che-dashboard": {
+      "main": [
+        "dist/scripts/app-*",
+        "dist/styles/app-*",
+        "dist/fonts/*"
+      ]
+    }
+  }
+}

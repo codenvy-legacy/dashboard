@@ -1,0 +1,41 @@
+<!--
+
+    Copyright (c) 2015 Codenvy, S.A.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+    Contributors:
+      Codenvy, S.A. - initial API and implementation
+
+-->
+<che-panel che-title="Factory Information">
+  <ng-form name="factoryInformationForm">
+    <che-input che-form="factoryInformationForm"
+               che-name="name"
+               che-label-name="Name"
+               che-place-holder="Name of the factory"
+                ng-model="factoryInformationCtrl.copyOriginFactory.name">
+    </che-input>
+  </ng-form>
+  <div layout="column" flex layout-align="space-around start">
+    <che-text-info che-label-name="URL"
+                    che-text="factoryInformationCtrl.factory.idURL ? factoryInformationCtrl.factory.idURL : 'No value'"
+                    che-href="factoryInformationCtrl.factory.idURL"
+                    che-copy-clipboard="true"></che-text-info>
+    <che-text-info class="che-text-info-subline"
+                    ng-show="factoryInformationCtrl.factory.nameURL"
+                   che-text="factoryInformationCtrl.factory.nameURL ? factoryInformationCtrl.factory.nameURL : 'No value'"
+                   che-href="factoryInformationCtrl.factory.nameURL"
+                   che-copy-clipboard="true"></che-text-info>
+    <che-text-info che-label-name="Creation Date"
+                    che-text="factoryInformationCtrl.factory.originFactory.creator.created | amDateFormat:'Do MMMM YYYY'">
+    </che-text-info>
+  </div>
+  <che-button-primary
+    ng-disabled="factoryInformationForm.$invalid
+                 || (factoryInformationCtrl.copyOriginFactory.name === factoryInformationCtrl.factory.originFactory.name)"
+    che-button-title="Update" name="updateButton"
+    ng-click="factoryInformationCtrl.setFactory(factoryInformationCtrl.copyOriginFactory)"/>
+</che-panel>

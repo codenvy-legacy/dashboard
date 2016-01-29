@@ -1,0 +1,38 @@
+<!--
+
+    Copyright (c) 2015 Codenvy, S.A.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+    Contributors:
+      Codenvy, S.A. - initial API and implementation
+
+-->
+<che-panel che-title="Factory Routing" class="cdvy-factory-information">
+  <div layout="row" flex layout-align="space-around center">
+    <label flex="15">Workspace Type: </label>
+
+    <div layout="column" flex="85">
+      <che-toggle ng-model="workspace.type">
+        <che-toggle-button ng-click="factoryRoutingCtrl.setFactoryWorkspace(workspace)" che-font-icon="material-design icon-ic_alarm_24px"
+                           che-title="temp"></che-toggle-button>
+        <che-toggle-button ng-click="factoryRoutingCtrl.setFactoryWorkspace(workspace)" che-font-icon="material-design icon-ic_input_24px"
+                            che-title="named"></che-toggle-button>
+      </che-toggle>
+    </div>
+  </div>
+  <div layout="row" flex layout-align="space-around center">
+    <label flex="15">Workspace Location: </label>
+
+    <div layout="column" flex="85">
+      <che-toggle ng-model="workspace.location">
+        <che-toggle-button ng-click="factoryRoutingCtrl.setFactoryWorkspace(workspace)"
+                           che-font-icon="material-design icon-ic_account_circle_24px" che-title="owner"></che-toggle-button>
+        <che-toggle-button ng-click="factoryRoutingCtrl.setFactoryWorkspace(workspace)"
+                           che-font-icon="material-design icon-ic_account_box_24px" che-title="acceptor"></che-toggle-button>
+      </che-toggle>
+    </div>
+  </div>
+</che-panel>

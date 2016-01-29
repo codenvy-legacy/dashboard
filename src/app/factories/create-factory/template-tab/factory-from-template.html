@@ -1,0 +1,26 @@
+<!--
+
+    Copyright (c) 2015 Codenvy, S.A.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+    Contributors:
+      Codenvy, S.A. - initial API and implementation
+
+-->
+<div class="factory-from-template" layout="row" flex layout-align="start center">
+  <label flex="15">Select Template: </label>
+
+  <div layout="column" flex="85">
+    <che-toggle ng-model="factoryFromTemplateCtrl.templateName">
+      <che-toggle-button ng-click="factoryFromTemplateCtrl.getFactoryTemplate(factoryFromTemplateCtrl.templateName)"
+                         che-font-icon="material-design icon-ic_unfold_less_24px"
+                         che-title="minimal"></che-toggle-button>
+      <che-toggle-button ng-click="factoryFromTemplateCtrl.getFactoryTemplate(factoryFromTemplateCtrl.templateName)"
+                          che-font-icon="material-design icon-ic_unfold_more_24px"
+                          che-title="complete"></che-toggle-button>
+    </che-toggle>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<!--
+
+    Copyright (c) 2015 Codenvy, S.A.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+    Contributors:
+      Codenvy, S.A. - initial API and implementation
+
+-->
+
+<che-panel che-title="Upgrade" che-panel-id="upgrade-your-installation-panel" che-disabled="upgradeInstallationCtrl.isSectionDisabled()">
+  <md-progress-linear md-mode="indeterminate"  ng-hide="upgradeInstallationCtrl.fetchAll" ></md-progress-linear>
+
+  <div ng-show="upgradeInstallationCtrl.fetchAll">
+
+    <div ng-show="upgradeInstallationCtrl.codenvyUpgradableArtifact">
+      <che-button-primary che-button-title="Install {{upgradeInstallationCtrl.codenvyUpgradableArtifact.version}} Now" ng-click="upgradeInstallationCtrl.install(upgradeInstallationCtrl.codenvyUpgradableArtifact.version)" ng-disabled="upgradeInstallationCtrl.isSectionDisabled()"></che-button-primary>
+    </div>
+    <div ng-hide="upgradeInstallationCtrl.codenvyUpgradableArtifact">
+      Nothing to upgrade.
+    </div>
+
+    <!-- Removed because not implemented in IM -->
+    <!--
+    <div ng-form="onPremUpgradeScheduleForm" flex>
+      <che-input che-form="onPremUpgradeScheduleForm"
+                  che-name="upgradeScheduleInput"
+                  che-label-name="Schedule Installation"
+                  ng-model="upgradeInstallationCtrl.scheduleExpression">
+      </che-input>
+      <che-button-default che-button-title="Save Schedule" ng-click="upgradeInstallationCtrl.saveSchedule()"></che-button-default>
+      <md-checkbox ng-model="upgradeInstallationCtrl.checkNewVersion">Check for new version before installing</md-checkbox>
+    </div>
+    <p>Upgrading may require a maintenance window up to 30 minutes. Minor releases either do not
+       require a maintenance window or are a few minutes.</p>
+    <p>Docs:<a href="" class="onprem-upgrade-installation-schedule-syntaxlink">Syntax for Scheduling Installation</a>.</p>
+    -->
+  </div>
+</che-panel>

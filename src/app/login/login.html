@@ -1,0 +1,57 @@
+<!--
+
+    Copyright (c) 2015 Codenvy, S.A.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+    Contributors:
+      Codenvy, S.A. - initial API and implementation
+
+-->
+<div layout="row" flex layout-align="center center">
+  <che-panel che-title="Developer Mode Login" flex="50">
+    <ng-form name="loginDeveloperForm">
+
+      <che-input che-form="loginDeveloperForm"
+                 che-name="login"
+                 che-label-name="Login"
+                 che-place-holder="Login of the user"
+                  ng-model="loginCtrl.username"
+                  required
+                  ng-maxlength="128">
+        <div ng-message="required">A login is required.</div>
+      </che-input>
+
+      <che-input che-form="loginDeveloperForm"
+                 che-name="password"
+                 che-label-name="Password"
+                 che-place-holder="Password of the user"
+                  ng-model="loginCtrl.password"
+                  ng-keyup="$event.keyCode == 13 && loginCtrl.submit()"
+                  type="password"
+                  required
+                  ng-maxlength="128">
+        <div ng-message="required">A password is required.</div>
+      </che-input>
+
+      <che-label-container che-label-name="Mode">
+
+        <che-toggle ng-model="loginCtrl.usermode" >
+          <che-toggle-button che-font-icon="fa fa-user" che-title="User"></che-toggle-button>
+          <che-toggle-button che-font-icon="material-design icon-ic_verified_user_24px" che-title="Admin"></che-toggle-button>
+        </che-toggle>
+      </che-label-container>
+
+      <che-button-primary ng-click="loginCtrl.submit()" che-button-title="Login"></che-button-primary>
+      <div layout="column" layout-align="center center">
+        <md-progress-circular ng-show="loginCtrl.loginInProgress" class="md-hue-2"  md-mode="indeterminate" md-theme="default"></md-progress-circular>
+        <div class="login-error-message" ng-show="loginCtrl.error">
+          {{loginCtrl.error}}
+        </div>
+      </div>
+
+    </ng-form>
+  </che-panel>
+</div>
