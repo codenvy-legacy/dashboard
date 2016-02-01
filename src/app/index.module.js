@@ -21,7 +21,8 @@ import {LoginCtrl} from './login/login.controller';
 import {ResetServerPropsCtrl} from './onprem/admin/reset-server-properties/reset-server-properties.controller';
 import {OnPremisesConfig} from './onpremises/onpremises-config';
 
-let initModule = angular.module('codenvyDashboard', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'braintree-angular', 'gavruk.card', 'ngResource', 'ngRoute', 'userDashboard']);
+let initModule = angular.module('codenvyDashboard', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'braintree-angular', 'gavruk.card',
+  'ngResource', 'ngRoute', 'ngPasswordStrength', 'ui.gravatar', 'userDashboard']);
 //initModule.controller('DashboardCtrl', DashboardCtrl);
 
 
