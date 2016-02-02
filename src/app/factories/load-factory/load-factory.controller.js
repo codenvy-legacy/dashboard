@@ -175,18 +175,22 @@ export class LoadFactoryCtrl {
   }
 
   subscribeOnEvents(data, bus){
-      // get channels
-      let environments = data.environments;
-      let envName = data.defaultEnvName;
-      let channels = environments[envName].machineConfigs[0].channels;
-      let statusChannel = channels.status;
-      let outputChannel = channels.output;
-      let agentChannel = 'workspace:' + data.id + ':ext-server:output';
+    // get channels
+    let environments = data.environments;
+    let envName = data.defaultEnv;
+    let defaultEnvironment = this.lodash.find(environments, (environment) => {
+        return environment.name === envName;
+    });
 
-      let workspaceId = data.id;
+    let channels = defaultEnvironment.machineConfigs[0].channels;
+    let statusChannel = channels.status;
+    let outputChannel = channels.output;
+    let agentChannel = 'workspace:' + data.id + ':ext-server:output';
+
+    let workspaceId = data.id;
 
       // for now, display log of status channel in case of errors
-      bus.subscribe(statusChannel, (message) => {
+    bus.subscribe(statusChannel, (message) => {
         if (message.eventType === 'DESTROYED' && message.workspaceId === data.id) {
         this.getLoadingSteps()[this.getCurrentProgressStep()].hasError = true;
 
