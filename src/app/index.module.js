@@ -18,11 +18,11 @@ import {FactoryConfig} from './factories/factories-config';
 
 import {LoginCtrl} from './login/login.controller';
 
+import {AdminConfig} from './admin/admin-config';
 import {ResetServerPropsCtrl} from './onprem/admin/reset-server-properties/reset-server-properties.controller';
-import {OnPremisesConfig} from './onpremises/onpremises-config';
 
 let initModule = angular.module('codenvyDashboard', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'braintree-angular', 'gavruk.card',
-  'ngResource', 'ngRoute', 'ngPasswordStrength', 'ui.gravatar', 'userDashboard']);
+  'ngResource', 'ngRoute', 'ngPasswordStrength', 'ui.gravatar', 'userDashboard', 'ngMessages']);
 //initModule.controller('DashboardCtrl', DashboardCtrl);
 
 
@@ -108,6 +108,6 @@ angular.module('ui.gravatar').config(['gravatarServiceProvider', function(gravat
 var instanceRegister = new Register(initModule);
 new CodenvyNavbarConfig(instanceRegister);
 new CodenvyComponentsConfig(instanceRegister);
-new CodenvyAccountConfig(instanceRegister)
+new CodenvyAccountConfig(instanceRegister);
 new FactoryConfig(instanceRegister);
-new OnPremisesConfig(instanceRegister);
+new AdminConfig(instanceRegister);

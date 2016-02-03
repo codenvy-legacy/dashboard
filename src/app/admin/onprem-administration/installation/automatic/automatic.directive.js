@@ -11,21 +11,20 @@
 'use strict';
 
 /**
- * Defines a directive for creating navbar.
- * @author Florent Benoit
+ * Defines a directive for creating the usage data and automatic upgrade panel.
  */
-export class AvailableSoftwarePanel {
+export class AutomaticUpdatesPanel {
 
   /**
    * Default constructor that is using resource
    * @ngInject for Dependency injection
    */
   constructor () {
-    this.restrict='E';
-    this.replace=false;
-    this.templateUrl = 'app/onpremises/admin/software/software.html';
-    this.controller = 'OnPremisesAdminAvailableSoftwareCtrl';
-    this.controllerAs = 'onPremisesAdminAvailableSoftwareCtrl';
+    this.restrict = 'E';
+    this.replace = false;
+    this.templateUrl = 'app/admin/onprem-administration/installation/automatic/automatic.html';
+    this.controller = 'AutomaticUpdatesCtrl';
+    this.controllerAs = 'automaticUpdatesCtrl';
   }
 
 }

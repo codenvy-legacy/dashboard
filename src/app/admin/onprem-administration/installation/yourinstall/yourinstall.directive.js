@@ -11,20 +11,20 @@
 'use strict';
 
 /**
- * Defines a directive the upgrade installation panel.
+ * Defines a directive for creating the your installation panel.
  */
-export class UpgradeInstallationPanel {
+export class YourInstallationPanel {
 
   /**
    * Default constructor that is using resource
    * @ngInject for Dependency injection
    */
   constructor () {
-    this.restrict = 'E';
-    this.replace = false;
-    this.templateUrl = 'app/onpremises/admin/installation/upgrade/upgrade.html';
-    this.controller = 'UpgradeInstallationCtrl';
-    this.controllerAs = 'upgradeInstallationCtrl';
+    this.restrict='E';
+    this.replace=false;
+    this.templateUrl = 'app/onpremises/admin/onprem-administration/installation/yourinstall/yourinstall.html';
+    this.controller = 'YourInstallationCtrl';
+    this.controllerAs = 'yourInstallationCtrl';
   }
 
 }

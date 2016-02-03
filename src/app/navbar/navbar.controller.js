@@ -64,7 +64,7 @@ export class CodenvyNavBarCtrl {
       workspaces: '#/workspaces',
       factories: '#/factories',
       administration: '#/onprem/administration',
-      usermanagement: '#/onprem/usermanagement',
+      usermanagement: '#/admin/usermanagement',
 
       // subsection
       plugins: '#/admin/plugins',

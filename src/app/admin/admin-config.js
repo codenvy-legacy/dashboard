@@ -10,13 +10,14 @@
  */
 'use strict';
 
-import {OnPremisesAdminInstallationConfig} from './installation/installation-config';
-import {OnPremisesAdminAvailableSoftwareCtrl} from './software/software.controller';
-import {AvailableSoftwarePanel} from './software/software.directive';
-import {OnPremisesAdminYourLicenseCtrl} from './yourlicense/yourlicense.controller';
-import {YourLicensePanel} from './yourlicense/yourlicense.directive';
+import {AdminsUserManagementConfig} from './user-management/user-management-config';
+import {OnPremisesAdminInstallationConfig} from './onprem-administration/installation/installation-config';
+import {OnPremisesAdminAvailableSoftwareCtrl} from './onprem-administration/software/software.controller';
+import {AvailableSoftwarePanel} from './onprem-administration/software/software.directive';
+import {OnPremisesAdminYourLicenseCtrl} from './onprem-administration/yourlicense/yourlicense.controller';
+import {YourLicensePanel} from './onprem-administration/yourlicense/yourlicense.directive';
 
-export class OnPremisesAdminConfig {
+export class AdminConfig {
 
   constructor(register) {
 
@@ -28,10 +29,11 @@ export class OnPremisesAdminConfig {
     // configure routes
     register.app.config(function ($routeProvider) {
       $routeProvider.accessWhen('/onprem/administration', {
-        templateUrl: 'app/onpremises/admin/administration.html'
+        templateUrl: 'app/admin/onprem-administration/onprem-administration.html'
       });
     });
 
+    new AdminsUserManagementConfig(register);
     new OnPremisesAdminInstallationConfig(register);
   }
 }

@@ -11,34 +11,40 @@
 'use strict';
 
 /**
- * This class is handling the controller for the create user widget
+ * This class is handling the controller for the add user
  * @author Oleksii Orel
  */
-export class OnPremisesAdminCreateUserCtrl {
+export class AdminsAddUserCtrl {
 
   /**
    * Default constructor.
    * @ngInject for Dependency injection
    */
-  constructor(cheAPI, cheNotification) {
+  constructor($mdDialog, cheAPI, cheNotification) {
+    'ngInject';
+
+    this.$mdDialog = $mdDialog;
     this.cheAPI = cheAPI;
     this.cheNotification = cheNotification;
-
-    this.newUserEmail = null;
-    this.newUserPassword = null;
   }
 
   /**
-   * Create new user callback
+   * Callback of the cancel button of the dialog.
+   */
+  abort() {
+    this.$mdDialog.hide();
+  }
+
+  /**
+   * Callback of the add button of the dialog(create new user).
    */
   createUser() {
     //TODO should add user name in future
     let promise = this.cheAPI.getUser().createUser(this.newUserEmail, null, this.newUserPassword);
 
     promise.then(() => {
-      this.newUserName = null;
-      this.newUserEmail = null;
-      this.newUserPassword = null;
+      this.$mdDialog.hide();
+      this.callbackController.updateUsers();
       this.cheNotification.showInfo('User successfully created.');
     }, (error) => {
       this.cheNotification.showError(error.data.message ? error.data.message : '.');

@@ -11,9 +11,10 @@
 'use strict';
 
 /**
- * Defines a directive for creating the your installation panel.
+ * Defines a directive for creating navbar.
+ * @author Florent Benoit
  */
-export class YourInstallationPanel {
+export class AvailableSoftwarePanel {
 
   /**
    * Default constructor that is using resource
@@ -22,9 +23,9 @@ export class YourInstallationPanel {
   constructor () {
     this.restrict='E';
     this.replace=false;
-    this.templateUrl = 'app/onpremises/admin/installation/yourinstall/yourinstall.html';
-    this.controller = 'YourInstallationCtrl';
-    this.controllerAs = 'yourInstallationCtrl';
+    this.templateUrl = 'app/admin/onprem-administration/software/software.html';
+    this.controller = 'OnPremisesAdminAvailableSoftwareCtrl';
+    this.controllerAs = 'onPremisesAdminAvailableSoftwareCtrl';
   }
 
 }

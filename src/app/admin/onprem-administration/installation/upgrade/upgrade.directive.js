@@ -11,9 +11,9 @@
 'use strict';
 
 /**
- * Defines a directive for creating the usage data and automatic upgrade panel.
+ * Defines a directive the upgrade installation panel.
  */
-export class AutomaticUpdatesPanel {
+export class UpgradeInstallationPanel {
 
   /**
    * Default constructor that is using resource
@@ -22,9 +22,9 @@ export class AutomaticUpdatesPanel {
   constructor () {
     this.restrict = 'E';
     this.replace = false;
-    this.templateUrl = 'app/onpremises/admin/installation/automatic/automatic.html';
-    this.controller = 'AutomaticUpdatesCtrl';
-    this.controllerAs = 'automaticUpdatesCtrl';
+    this.templateUrl = 'app/admin/onprem-administration/installation/upgrade/upgrade.html';
+    this.controller = 'UpgradeInstallationCtrl';
+    this.controllerAs = 'upgradeInstallationCtrl';
   }
 
 }

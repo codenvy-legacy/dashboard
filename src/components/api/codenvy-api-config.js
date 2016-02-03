@@ -11,6 +11,7 @@
 'use strict';
 
 import {CodenvyAPI} from './codenvy-api.factory';
+import {CodenvyUser} from './codenvy-user.factory';
 import {CodenvyAccount} from './codenvy-account.factory';
 import {CodenvyAnalytics} from './codenvy-analytics.factory';
 import {CodenvySaas} from './codenvy-saas.factory';
@@ -22,6 +23,7 @@ import {CodenvyAnalyticsSession} from './codenvy-analytics-session.factory';
 export class CodenvyApiConfig {
 
   constructor(register) {
+    register.factory('codenvyUser', CodenvyUser);
     register.factory('codenvyAccount', CodenvyAccount);
     register.factory('codenvyAnalytics', CodenvyAnalytics);
     register.factory('codenvySaas', CodenvySaas);

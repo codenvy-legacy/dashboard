@@ -11,9 +11,9 @@
 'use strict';
 
 /**
- * Defines a directive for creating the configuration panel.
+ * Defines a directive for creating "your license" section.
  */
-export class ConfigurationPanel {
+export class YourLicensePanel {
 
   /**
    * Default constructor that is using resource
@@ -22,10 +22,9 @@ export class ConfigurationPanel {
   constructor () {
     this.restrict = 'E';
     this.replace = false;
-    this.bindToController = true;
-    this.templateUrl = 'app/onpremises/admin/installation/configuration/configuration.html';
-    this.controller = 'OnPremConfigurationCtrl';
-    this.controllerAs = 'onPremConfigurationCtrl';
+    this.templateUrl = 'app/admin/onprem-administration/yourlicense/yourlicense.html';
+    this.controller = 'OnPremisesAdminYourLicenseCtrl';
+    this.controllerAs = 'onPremisesAdminYourLicenseCtrl';
   }
 
 }

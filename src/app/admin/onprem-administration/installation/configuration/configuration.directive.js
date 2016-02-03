@@ -11,20 +11,21 @@
 'use strict';
 
 /**
- * Defines a directive for creating "your license" section.
+ * Defines a directive for creating the configuration panel.
  */
-export class YourLicensePanel {
+export class ConfigurationPanel {
 
   /**
    * Default constructor that is using resource
    * @ngInject for Dependency injection
    */
-  constructor() {
+  constructor () {
     this.restrict = 'E';
     this.replace = false;
-    this.templateUrl = 'app/onpremises/admin/yourlicense/yourlicense.html';
-    this.controller = 'OnPremisesAdminYourLicenseCtrl';
-    this.controllerAs = 'onPremisesAdminYourLicenseCtrl';
+    this.bindToController = true;
+    this.templateUrl = 'app/admin/onprem-administration/installation/configuration/configuration.html';
+    this.controller = 'OnPremConfigurationCtrl';
+    this.controllerAs = 'onPremConfigurationCtrl';
   }
 
 }
