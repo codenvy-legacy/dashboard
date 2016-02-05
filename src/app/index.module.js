@@ -22,8 +22,7 @@ import {AdminConfig} from './admin/admin-config';
 import {ResetServerPropsCtrl} from './onprem/admin/reset-server-properties/reset-server-properties.controller';
 
 let initModule = angular.module('codenvyDashboard', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'braintree-angular', 'gavruk.card',
-  'ngResource', 'ngRoute', 'ngPasswordStrength', 'ui.gravatar', 'userDashboard', 'ngMessages']);
-//initModule.controller('DashboardCtrl', DashboardCtrl);
+  'ngResource', 'ngRoute', 'ngPasswordStrength', 'ui.codemirror', 'ui.gravatar', 'userDashboard', 'ngMessages']);
 
 
 var DEV = true;
