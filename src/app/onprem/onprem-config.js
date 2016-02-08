@@ -15,6 +15,19 @@
  * is strictly forbidden unless prior written permission is obtained
  * from Codenvy S.A..
  */
+'use strict';
 
-// injector
-// endinjector
+import {ResetServerPropsCtrl} from './admin/reset-server-properties/reset-server-properties.controller';
+import {NagMessageCtrl} from './license-nag-message-management/nag-message.controller';
+import {NagMessageService} from './license-nag-message-management/nag-message.service.js';
+import {NagMessage} from './license-nag-message-management/nag-message.directive';
+
+export class CodenvyOnpremConfig {
+
+  constructor(register) {
+    register.controller('NagMessageCtrl', NagMessageCtrl);
+    register.service('nagMessageService', NagMessageService);
+    register.directive('cdvyNagMessage', NagMessage);
+
+  }
+}

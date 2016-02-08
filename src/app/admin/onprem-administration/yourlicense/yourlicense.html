@@ -22,16 +22,27 @@
     <div ng-switch on="onPremisesAdminYourLicenseCtrl.licenseState">
       <div ng-switch on="onPremisesAdminYourLicenseCtrl.licenseState">
         <div ng-switch-when="LICENSE">
-          <!--
-                  not implemented yet
-          -->
+          <div ng-if="onPremisesAdminYourLicenseCtrl.license.properties">
+            <che-label-container che-label-name="License">
+            <span class="onprem-license-info-row">
+              Fair Source {{onPremisesAdminYourLicenseCtrl.maxUsers}} users, unlimited servers
+            </span>
+            </che-label-container>
+            <che-label-container che-label-name="Expiration">
+            <span class="onprem-license-info-row">
+              {{onPremisesAdminYourLicenseCtrl.license.properties.isExpired}}
+            </span>
+            </che-label-container>
+
+            {{onPremisesAdminYourLicenseCtrl.license.properties.expiration}}
+          </div>
         </div>
         <div ng-switch-when="NO_LICENSE">
           <che-label-container che-label-name="License">
-            <span  class="onprem-license-info-row">
+            <span class="onprem-license-info-row">
               Fair Source 10 - 10 users, single server - (See:&nbsp;
-              <che-link ng-href="http://codenvy.com/fair-source"
-                        che-link-text="http://codenvy.com/fair-source"
+              <che-link ng-href="http://codenvy.com/legal/fair-source"
+                        che-link-text="http://codenvy.com/legal/fair-source"
                         che-no-padding="true" che-new-window></che-link>
               )
             </span>
@@ -51,9 +62,10 @@
           </che-label-container>
           <che-label-container che-label-name="Source Code" ng-if="onPremisesAdminYourLicenseCtrl.installedVersion">
             <span class="onprem-license-info-row">
-              <che-link ng-href="https://install.codenvycorp.com/codenvy/codenvy-src-{{onPremisesAdminYourLicenseCtrl.installedVersion}}.zip"
-                        che-link-text="(URL)"
-                        che-no-padding="true" che-new-window></che-link>
+              <che-link
+                ng-href="https://install.codenvycorp.com/codenvy/codenvy-src-{{onPremisesAdminYourLicenseCtrl.installedVersion}}.zip"
+                che-link-text="(URL)"
+                che-no-padding="true" che-new-window></che-link>
             </span>
           </che-label-container>
         </div>

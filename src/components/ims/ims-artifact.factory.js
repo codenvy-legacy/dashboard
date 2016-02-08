@@ -33,29 +33,35 @@ export class ImsArtifactApi {
 
     // remote call
     this.remoteImsAPI = $resource('/im', {}, {
-      getDownloadedArtifactsList: { method: 'GET', url: '/im/artifacts', isArray: true },
-      getInstalledArtifactsList: { method: 'GET', url: '/im/installations', isArray: true },
-      getAvailableArtifactsList: { method: 'GET', url: '/im/updates', isArray: true },
-      getInfoDownloadID: { method: 'GET', url: '/im/downloads/:id'},
-      getCurrentDownloadID: { method: 'GET', url: '/im/downloads'},
-      downloadArtifacts: { method: 'POST', url: '/im/downloads' },
-      deleteDownloadedArtifact: {method: 'DELETE', url:'/im/downloads/:artifactName/:version'},
-      artifactProperties: {method: 'GET', url:'/im/artifact/:artifactName/version/:version/properties'}
+      getDownloadedArtifactsList: {method: 'GET', url: '/im/artifacts', isArray: true},
+      getInstalledArtifactsList: {method: 'GET', url: '/im/installations', isArray: true},
+      getAvailableArtifactsList: {method: 'GET', url: '/im/updates', isArray: true},
+      getInfoDownloadID: {method: 'GET', url: '/im/downloads/:id'},
+      getCurrentDownloadID: {method: 'GET', url: '/im/downloads'},
+      downloadArtifacts: {method: 'POST', url: '/im/downloads'},
+      deleteDownloadedArtifact: {method: 'DELETE', url: '/im/downloads/:artifactName/:version'},
+      artifactProperties: {method: 'GET', url: '/im/artifact/:artifactName/version/:version/properties'}
     });
 
-    this.isIms = false;
+    this.ims = {
+      isAvailable: null
+    };
 
-    cheUser.refetchUser().then(() => {
+    if (!cheUser.getUser()) {
+      cheUser.fetchUser(false).then(() => {
+        this._updateImsAvailable(this.getDownloadedArtifactsList());
+      });
+    } else {
       this._updateImsAvailable(this.getDownloadedArtifactsList());
-    });
+    }
   }
 
   /**
    * Get the ims available status
-   * @returns {boolean}
+   * @returns {}
    */
-  isImsAvailable() {
-    return this.isIms;
+  getIms() {
+    return this.ims;
   }
 
   /**
@@ -64,12 +70,12 @@ export class ImsArtifactApi {
    */
   _updateImsAvailable(imsPromise) {
     imsPromise.then(() => {
-      this.isIms = true;
+      this.ims.isAvailable = true;
     }, (error) => {
       if (error.status === 404) {
-        this.isIms = false;
+        this.ims.isAvailable = false;
       } else {
-        this.isIms = true;
+        this.ims.isAvailable = true;
       }
     });
   }
@@ -106,7 +112,7 @@ export class ImsArtifactApi {
   }
 
   downloadArtifact(artifactName, artifactVersion) {
-    let artifact = { artifact: artifactName, version: artifactVersion };
+    let artifact = {artifact: artifactName, version: artifactVersion};
     let request = this.remoteImsAPI.downloadArtifacts(artifact, {});
     return request.$promise;
   }
@@ -142,7 +148,7 @@ export class ImsArtifactApi {
         }
 
         artifacts[artifact.artifact] = value;
-        toGather.add({ name: artifact.artifact, version: artifact.version });
+        toGather.add({name: artifact.artifact, version: artifact.version});
       }
     }
 
@@ -152,7 +158,7 @@ export class ImsArtifactApi {
         if (artifact.status !== 'INSTALLED') {
           let value = artifacts[artifact.artifact];
           if (!value) {
-            value = { name: artifact.artifact };
+            value = {name: artifact.artifact};
           }
           artifacts[artifact.artifact] = value; // in case it was just created
           // add download info to the list of artifacts
@@ -264,39 +270,39 @@ export class ImsArtifactApi {
     if (entry) {
       return entry.description;
     } else {
-      return ;
+      return;
     }
   }
 
   getArtifactReleaseNotesUrl(artifact, version) {
     let entry = dictionary.artifacts[artifact];
     if (entry) {
-      return entry.releaseNotes  + 'release-' + version.replace(/\./g, '-') + '/';
+      return entry.releaseNotes + 'release-' + version.replace(/\./g, '-') + '/';
     } else {
       return undefined;
     }
   }
 
   getArtifactProperties(artifactName, version) {
-    let params = { artifactName: artifactName, version: version };
+    let params = {artifactName: artifactName, version: version};
     return this.remoteImsAPI.artifactProperties(params).$promise;
   }
 
   deleteDownloadedArtifact(artifactName, version) {
-    let params = { artifactName: artifactName, version: version };
+    let params = {artifactName: artifactName, version: version};
     return this.remoteImsAPI.deleteDownloadedArtifact(params).$promise;
   }
 
   getArtifactReleaseDate(artifactName, version) {
     let propertiesPromise = this.getArtifactProperties(artifactName, version);
     return propertiesPromise.then(props => this._gotArtifactProperties(artifactName, version, props))
-                                  /* Eat all errors. */
-                            .catch(error => this._artifactPropertiesError(artifactName, version, error));
+      /* Eat all errors. */
+      .catch(error => this._artifactPropertiesError(artifactName, version, error));
   }
 
   _gotArtifactProperties(artifact, version, properties) {
     if (properties && properties['build-time']) {
-      let result =  Date.parse(properties['build-time']);
+      let result = Date.parse(properties['build-time']);
       return result;
     } else {
       console.log(`WARNING no date for artifact ${artifact} ${version}`);

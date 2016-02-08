@@ -30,7 +30,8 @@ export class CodenvyAPI {
    * @ngInject for Dependency injection
    */
   constructor(codenvyAccount, codenvyAnalytics, codenvyAnalyticsSession,
-                codenvyFactory, codenvyFactoryTemplate, codenvyPayment, codenvySaas, codenvyUser) {
+                codenvyFactory, codenvyFactoryTemplate, codenvyPayment,
+                codenvySaas, codenvyUser) {
     this.codenvyAccount = codenvyAccount;
     this.codenvyAnalytics = codenvyAnalytics;
     this.codenvyAnalyticsSession = codenvyAnalyticsSession;
@@ -98,5 +99,4 @@ export class CodenvyAPI {
   getUser() {
     return this.codenvyUser;
   }
-
 }

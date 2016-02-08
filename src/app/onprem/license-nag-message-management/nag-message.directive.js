@@ -15,6 +15,26 @@
  * is strictly forbidden unless prior written permission is obtained
  * from Codenvy S.A..
  */
+'use strict';
 
-// injector
-// endinjector
+/**
+ * Defines a directive for displaying licensed nag message.
+ * @author Oleksii Orel
+ */
+export class NagMessage {
+
+  /**
+   * Default constructor that is using resource
+   * @ngInject for Dependency injection
+   */
+  constructor() {
+    this.restrict = 'E';
+    this.replace = false;
+    this.transclude = true;
+    this.bindToController = true;
+    this.controller = 'NagMessageCtrl';
+    this.controllerAs = 'nagMessageCtrl';
+    this.templateUrl = 'app/onprem/license-nag-message-management/nag-message.html';
+  }
+
+}

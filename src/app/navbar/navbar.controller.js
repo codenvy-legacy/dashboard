@@ -64,6 +64,8 @@ export class CodenvyNavBarCtrl {
 
     this.cheUser.fetchUser();
 
+    this.ims = this.imsArtifactApi.getIms();
+
     this.menuItemUrl = {
       login: '#/login',
       dashboard: '#/',
@@ -96,10 +98,6 @@ export class CodenvyNavBarCtrl {
         $scope.$broadcast('navbar-selected:clear');
       }
     });
-  }
-
-  isImsAvailable() {
-    return this.imsArtifactApi.isImsAvailable();
   }
 
   reload() {

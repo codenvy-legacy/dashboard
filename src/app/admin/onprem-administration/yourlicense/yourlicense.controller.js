@@ -23,8 +23,12 @@ export class OnPremisesAdminYourLicenseCtrl {
    * Default constructor.
    * @ngInject for Dependency injection
    */
-  constructor(imsArtifactApi) {
+  constructor(imsArtifactApi, imsLicenseApi) {
     'ngInject';
+
+    this.imsLicenseApi = imsLicenseApi;
+
+    this.license = imsLicenseApi.getLicense();
 
     let artifactsList = imsArtifactApi.getInstalledArtifactsList();
 
@@ -39,7 +43,24 @@ export class OnPremisesAdminYourLicenseCtrl {
       }
     });
 
-    this.licenseState = 'NO_LICENSE';
+    this.updateLicenseState();
+  }
+
+  /**
+   * Update license's state
+   */
+  updateLicenseState() {
+    if (this.license.key) {
+      this.licenseState = 'LICENSE';
+      this.maxUsers = this.imsLicenseApi.getNumberOfAllowedUsers();
+    } else {
+      this.imsLicenseApi.fetchLicense().then(() => {
+        this.licenseState = 'LICENSE';
+        this.maxUsers = this.imsLicenseApi.getNumberOfAllowedUsers();
+      }, () => { //if no license
+        this.licenseState = 'NO_LICENSE';
+      });
+    }
   }
 
 }

@@ -58,9 +58,6 @@ export class CodenvyUser {
     // user roles
     this.isUserInRoleMap = new Map();
 
-    // fetch the user when we're initialized
-    this.fetchUser();
-
     this.isLogged = false;
 
     this.userPromise = null;

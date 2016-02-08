@@ -25,7 +25,7 @@ import {ImsUpdateApi} from './ims-update.factory';
 import {ImsNodesApi} from './ims-nodes.factory';
 import {ImsPropertiesApi} from './ims-properties.factory';
 import {ImsEventLoggingApi} from './ims-eventlogging.factory';
-
+import {ImsLicenseApi} from './ims-license.factory';
 
 export class ImsApiConfig {
 
@@ -45,5 +45,6 @@ export class ImsApiConfig {
 
     register.factory('imsEventLoggingApi', ImsEventLoggingApi);
 
+    register.factory('imsLicenseApi', ImsLicenseApi);
   }
 }

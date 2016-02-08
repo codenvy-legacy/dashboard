@@ -44,18 +44,18 @@ export class AdminsUserManagementCtrl {
     this.users = [];
     this.usersMap = codenvyAPI.getUser().getUsersMap();
 
-    if (this.usersMap && this.usersMap.size === 0) {
-      this.isLoading = true;
-      codenvyAPI.getUser().fetchUsers(this.maxItems, this.skipCount).then(() => {
-        this.isLoading = false;
-        this.updateUsers();
-      }, (error) => {
-        this.isLoading = false;
-        this.cheNotification.showError(error.data.message ? error.data.message : '.');
-      });
-    } else {
+    if (this.usersMap && this.usersMap.size > 1) {
       this.updateUsers();
-    }
+    } else {
+    this.isLoading = true;
+    codenvyAPI.getUser().fetchUsers(this.maxItems, this.skipCount).then(() => {
+      this.isLoading = false;
+      this.updateUsers();
+    }, (error) => {
+      this.isLoading = false;
+      this.cheNotification.showError(error.data.message ? error.data.message : '.');
+    });
+  }
   }
 
   /**

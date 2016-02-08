@@ -26,7 +26,7 @@ import {FactoryConfig} from './factories/factories-config';
 import {LoginCtrl} from './login/login.controller';
 
 import {AdminConfig} from './admin/admin-config';
-import {ResetServerPropsCtrl} from './onprem/admin/reset-server-properties/reset-server-properties.controller';
+import {CodenvyOnpremConfig} from './onprem/onprem-config';
 
 let initModule = angular.module('codenvyDashboard', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'braintree-angular', 'gavruk.card',
   'ngResource', 'ngRoute', 'ngPasswordStrength', 'ui.codemirror', 'ui.gravatar', 'userDashboard', 'ngMessages']);
@@ -52,6 +52,14 @@ initModule.config(['$routeProvider', function ($routeProvider) {
     });
 
 }]);
+
+//add tasks to run
+initModule.run(['$rootScope', 'nagMessageService',
+  function ($rootScope, nagMessageService) {
+    $rootScope.$on('$viewContentLoaded', function () {
+      nagMessageService.createLicenseMessage();
+    });
+  }]);
 
 // add interceptors
 initModule.factory('AuthInterceptor', function ($window, $cookies, $q, $location, $log) {
@@ -117,3 +125,4 @@ new CodenvyComponentsConfig(instanceRegister);
 new CodenvyAccountConfig(instanceRegister);
 new FactoryConfig(instanceRegister);
 new AdminConfig(instanceRegister);
+new CodenvyOnpremConfig(instanceRegister);
