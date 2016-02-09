@@ -27,11 +27,11 @@ export class AdminsAddUserCtrl {
    * Default constructor.
    * @ngInject for Dependency injection
    */
-  constructor($mdDialog, cheAPI, cheNotification) {
+  constructor($mdDialog, codenvyUser, cheNotification) {
     'ngInject';
 
     this.$mdDialog = $mdDialog;
-    this.cheAPI = cheAPI;
+    this.codenvyUser = codenvyUser;
     this.cheNotification = cheNotification;
   }
 
@@ -47,7 +47,7 @@ export class AdminsAddUserCtrl {
    */
   createUser() {
     //TODO should add user name in future
-    let promise = this.cheAPI.getUser().createUser(this.newUserEmail, null, this.newUserPassword);
+    let promise = this.codenvyUser.createUser(this.newUserEmail, null, this.newUserPassword);
 
     promise.then(() => {
       this.$mdDialog.hide();
