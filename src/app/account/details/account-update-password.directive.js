@@ -30,7 +30,7 @@ export class AccountUpdatePassword {
   constructor() {
     this.restrict = 'E';
     this.replace = false;
-    this.templateUrl = 'app/account/details//account-update-password.html';
+    this.templateUrl = 'app/account/details/account-update-password.html';
 
     // scope values
     this.scope = {
