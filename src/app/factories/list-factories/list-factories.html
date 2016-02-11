@@ -18,20 +18,11 @@
 
 -->
 <che-toolbar che-title="All factories"
-             che-button-name="Create Factory"
-             che-button-href="#/factories/create-factory"></che-toolbar>
-<md-toolbar class="factories-list-header md-toolbar-tools" md-theme="toolbar-theme">
-  <che-search flex che-placeholder="Search for factories"
-               ng-model="listFactoriesCtrl.factoriesFilter.originFactory.name"></che-search>
-  <span flex></span>
-
-  <div class="md-toolbar-item md-tools" layout="row">
-    <i class="factories-list-factories-cog material-design icon-ic_filter_list_24px" dropdown-menu="listFactoriesCtrl.dropDownOptionsList"
-       dropdown-model="listFactoriesCtrl.dropDownValue"
-       dropdown-onchange="listFactoriesCtrl.dropDownSelected(selected, $event)"
-       dropdown-item-label='name' che-event-logger="factories/orderBy"></i>
-  </div>
-</md-toolbar>
+             che-dropdown-menu="listFactoriesCtrl.menuOptions"
+             che-search-placeholder="Search for factories"
+             che-search-model="listFactoriesCtrl.factoriesFilter.originFactory.name"
+             che-add-button-name="Create Factory"
+             che-add-button-href="#/factories/create-factory"></che-toolbar>
 <md-content layout="column" layout-fill class="factories-list-factories ng-scope md-maincontent-theme-theme">
   <md-progress-linear md-mode="indeterminate" class="factories-list-factories-progress"
                       ng-if="listFactoriesCtrl.isLoading"></md-progress-linear>

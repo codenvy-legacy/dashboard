@@ -18,8 +18,10 @@
 
 -->
 <md-content class="factory-from-workspace" flex>
-  <che-search che-placeholder="Search for workspaces"
-               ng-model="factoryFromWorkspaceCtrl.workspaceFilter.name"></che-search>
+  <div class="factory-from-workspace-search">
+    <che-search che-placeholder="Search for workspaces"
+                ng-model="factoryFromWorkspaceCtrl.workspaceFilter.name"></che-search>
+  </div>
   <span class="projects-list-workspace-name">{{factoryFromWorkspaceCtrl.getWorkspaceName(workspaceId)}}</span>
                   <span ng-show="(workspaces | filter:factoryFromWorkspaceCtrl.workspaceFilter).length == 0 && workspaces.length > 0"
                         class="workspace-list-empty">No workspaces found</span>

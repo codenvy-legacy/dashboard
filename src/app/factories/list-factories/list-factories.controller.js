@@ -30,13 +30,24 @@ export class ListFactoriesCtrl {
     this.codenvyAPI = codenvyAPI;
     this.cheNotification = cheNotification;
 
-    this.dropDownOptionsList = [
+    this.menuOptions = [
       {
-        name: 'Sort by views number', orderBy: 'views'
-      }, {
-        name: 'Sort by creation date', orderBy: 'originFactory.creator.created'
-      }, {
-        name: 'Delete all selected factories', deleteAll: 'true'
+        title: 'Sort by views number',
+        onclick: () => {
+          this.factoriesOrderBy = this.factoriesOrderBy === 'views' ? '-' + 'views' : 'views';
+        }
+      },
+      {
+        title: 'Sort by creation date',
+        onclick: () => {
+          this.factoriesOrderBy = this.factoriesOrderBy === 'originFactory.creator.created' ? '-' + 'originFactory.creator.created' : 'originFactory.creator.created';
+        }
+      },
+      {
+        title: 'Delete all selected factories',
+        onclick: () => {
+          this.deleteSelectedFactories();
+        }
       }
     ];
 
@@ -100,9 +111,8 @@ export class ListFactoriesCtrl {
 
   /**
    * Delete all selected factories
-   * @param event
    */
-  deleteSelectedFactories(event) {
+  deleteSelectedFactories() {
     let factoriesSelectedStatusKeys = Object.keys(this.factoriesSelectedStatus);
     let checkedFactoriesKeys = [];
     if (factoriesSelectedStatusKeys.length) {
@@ -126,8 +136,7 @@ export class ListFactoriesCtrl {
           .ariaLabel('Remove selected factories')
           .ok('Delete!')
           .cancel('Cancel')
-          .clickOutsideToClose(true)
-          .targetEvent(event);
+          .clickOutsideToClose(true);
         this.$mdDialog.show(confirm).then(() => {
           var isError = false;
           checkedFactoriesKeys.forEach((factoryId) => {
@@ -159,19 +168,5 @@ export class ListFactoriesCtrl {
       this.cheNotification.showError('No selected factories.');
     }
   }
-
-  /**
-   * Callback called when the dropdown is called
-   * @param selected
-   * @param event
-   */
-  dropDownSelected(selected, event) {
-    if (selected.orderBy) {
-      this.factoriesOrderBy = this.factoriesOrderBy === selected.orderBy ? '-' + selected.orderBy : selected.orderBy;
-    } else if (selected.deleteAll) {
-      this.deleteSelectedFactories(event);
-    }
-  }
-
 }
 
