@@ -20,6 +20,16 @@
 <ng-form name="createUserForm" class="admins-add-user-form">
   <div class="form-input-fields">
     <che-input che-form="createUserForm"
+               che-name="name"
+               che-label-name="Name"
+               che-place-holder="name"
+               ng-model="adminsAddUserCtrl.newUserName"
+               required
+               ng-maxlength="100">
+      <div ng-message="required">Name is required.</div>
+      <div ng-message="maxlength">Your name has to be less than 100 characters long.</div>
+    </che-input>
+    <che-input che-form="createUserForm"
                che-name="email"
                che-label-name="Email"
                che-place-holder="e-mail"
@@ -31,7 +41,7 @@
 
       <div ng-message="required">Email is required.</div>
       <div ng-message="email">Enter a valid email address.</div>
-      <div ng-message="maxlength">The name has to be less than 100 characters long.</div>
+      <div ng-message="maxlength">Your email has to be less than 100 characters long</div>
     </che-input>
     <che-input che-form="createUserForm"
                che-name="password"
@@ -44,10 +54,10 @@
                required
                ng-model="adminsAddUserCtrl.newUserPassword">
 
-      <div ng-message="required">A password is required.</div>
-      <div ng-message="pattern">Password should contain both letters and digits</div>
-      <div ng-message="minlength">Password should contain at least 8 characters.</div>
-      <div ng-message="maxlength">The password has to be less than 100 characters long.</div>
+      <div ng-message="required">Password is required.</div>
+      <div ng-message="pattern">Your password should contain both letters and digits</div>
+      <div ng-message="minlength">Your password should contain at least 8 characters.</div>
+      <div ng-message="maxlength">Your password has to be less than 100 characters long.</div>
     </che-input>
     <div class="password-prompt">
       <span>Minimum 8 characters, both letters and digits.</span>
@@ -65,8 +75,8 @@
                type="password"
                required>
 
-      <div ng-message="required">A confirm password is required.</div>
-      <div ng-message="maxlength">The password has to be less than 100 characters long.</div>
+      <div ng-message="required">Confirm password is required.</div>
+      <div ng-message="maxlength">Your password has to be less than 100 characters long.</div>
       <div
         ng-show="confirmNewUserPassword && (confirmNewUserPassword !== adminsAddUserCtrl.newUserPassword)">
         Passwords do not match.
