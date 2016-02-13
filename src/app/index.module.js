@@ -29,6 +29,9 @@ let initModule = angular.module('codenvyDashboard', ['ngAnimate', 'ngCookies', '
   'ngResource', 'ngRoute', 'ngPasswordStrength', 'ui.codemirror', 'ui.gravatar', 'userDashboard', 'ngMessages']);
 
 
+// Development mode is set to TRUE
+// the build assembly (pom.xml) will replace this mode by false when building the application
+// so distribution will have development mode turned off
 var DEV = true;
 
 // and setup controllers
