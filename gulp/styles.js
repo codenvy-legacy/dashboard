@@ -25,7 +25,7 @@ var _ = require('lodash');
 gulp.task('styles', function () {
 
   var injectFiles = gulp.src([
-    path.join(conf.paths.src, '/../bower_components/che-dashboard/src/{app,components}/**/*.styl'),
+    path.join(conf.paths.src, '/../bower_components/che-dashboard/dashboard/src/{app,components}/**/*.styl'),
     path.join(conf.paths.src, '/{app,components}/**/*.styl'),
     path.join('!' + conf.paths.src, '/app/index.styl')
   ], { read: false });
@@ -33,8 +33,8 @@ gulp.task('styles', function () {
   var injectOptions = {
     transform: function(filePath) {
       if (filePath.startsWith('bower_components')) {
-        filePath = filePath.replace('bower_components/che-dashboard/src/app', '../../bower_components/che-dashboard/src/app');
-        filePath = filePath.replace('bower_components/che-dashboard/src/components', '../../bower_components/che-dashboard/src/components');
+        filePath = filePath.replace('bower_components/che-dashboard/dashboard/src/app', '../../bower_components/che-dashboard/dashboard/src/app');
+        filePath = filePath.replace('bower_components/che-dashboard/dashboard/src/components', '../../bower_components/che-dashboard/dashboard/src/components');
       } else {
         filePath = filePath.replace(conf.paths.src + '/app/', '');
         filePath = filePath.replace(conf.paths.src + '/components/', '../components/');

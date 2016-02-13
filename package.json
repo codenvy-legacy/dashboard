@@ -3,10 +3,10 @@
   "version": "4.0.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/codenvy/che-dashboard.git"
+    "url": "git://github.com/eclipse/che.git"
   },
   "scripts": {
-    "postinstall": "bower install && cd bower_components/che-dashboard && bower install && gulp build"
+    "postinstall": "bower install && cd bower_components/che-dashboard/dashboard && bower install && gulp build"
   },
   "devDependencies": {
     "babel-core": "^6.4.5",
