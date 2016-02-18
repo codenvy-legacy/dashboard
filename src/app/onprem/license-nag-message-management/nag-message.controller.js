@@ -43,6 +43,7 @@ export class NagMessageCtrl {
       unregister();
     });
 
+    this.numberOfFreeUsers = imsLicenseApi.getNumberOfFreeUsers();
   }
 
 

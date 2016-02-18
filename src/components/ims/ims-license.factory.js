@@ -33,6 +33,17 @@ export class ImsLicenseApi {
 
     // remote call
     this.remoteLicenseAPI = this.$resource('/im/license', {}, {
+      getLicense: {
+        method: 'GET', url: '/im/license', responseType: 'text', transformResponse: (data) => {
+          return {key: data};
+        }
+      },
+      setLicense: {
+        method: 'POST', url: '/im/license', isArray: false,
+        headers: {
+          'Content-Type': 'text/plain'
+        }
+      },
       getProperties: {method: 'GET', url: '/im/license/properties'}
     });
 
@@ -42,8 +53,16 @@ export class ImsLicenseApi {
       properties: null
     };
 
-    // default number of allowed users
-    this.defaultNumberOfUsers = 10;
+    // default number of free users
+    this.numberOfFreeUsers = 5;
+  }
+
+  /**
+   * Gets the number of free users
+   * @returns {Number}
+   */
+  getNumberOfFreeUsers() {
+    return this.numberOfFreeUsers;
   }
 
   /**
@@ -53,14 +72,10 @@ export class ImsLicenseApi {
   getNumberOfAllowedUsers() {
     //if no license
     if (!this.currentLicense.properties) {
-      return this.defaultNumberOfUsers;
-    }
-    //if license expired
-    if (this.currentLicense.properties.isExpired === 'true') {
-      return 0;
+      return this.numberOfFreeUsers;
     }
     //if valid license
-    return parseInt(this.currentLicense.properties.users, 10) | 0;
+    return parseInt(this.currentLicense.properties.USERS, 10) | 0;
   }
 
   /**
@@ -116,13 +131,12 @@ export class ImsLicenseApi {
   fetchLicenseKey() {
     let deferred = this.$q.defer();
 
-    let promise = this.remoteLicenseAPI.get().$promise;
+    let promise = this.remoteLicenseAPI.getLicense().$promise;
 
     // check if was OK or not
-    promise.then((licenseKey) => {
-      //update current license key
-      this.currentLicense.key = licenseKey;//set key
-      deferred.resolve(licenseKey);
+    promise.then((license) => {
+      this.currentLicense.key = license.key;
+      deferred.resolve(license.key);
     }, (error) => {
       if (error.status === 304) {
         deferred.resolve(this.currentLicense.key);
@@ -160,4 +174,19 @@ export class ImsLicenseApi {
     return deferred.promise;
   }
 
+  /**
+   * Add license.
+   * @returns {*} the promise
+   */
+  addLicense(licenseKey) {
+    let promise = this.remoteLicenseAPI.setLicense(licenseKey).$promise;
+
+    // check if was OK or not
+    promise.then(() => {
+      //update current license
+      this.currentLicense.key = licenseKey;//add license key
+    });
+
+    return promise;
+  }
 }

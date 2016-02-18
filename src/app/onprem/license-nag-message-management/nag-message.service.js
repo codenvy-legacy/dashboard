@@ -25,11 +25,11 @@ export class NagMessageService {
    * Default constructor that is using resource injection
    * @ngInject for Dependency injection
    */
-  constructor($document, $compile, cheBodyInjectorSvc) {
+  constructor($document, $compile) {
     this.$document = $document;
     this.$compile = $compile;
-    this.cheBodyInjectorSvc = cheBodyInjectorSvc;
 
+    this.nagMessageId = 'codenvy-nag-message';
   }
 
   /**
@@ -40,25 +40,51 @@ export class NagMessageService {
       return;
     }
     // create nag message element
-    let item = angular.element('<cdvy-nag-message  id="codenvy-nag-message"></cdvy-nag-message>');
+    let item = angular.element('<cdvy-nag-message></cdvy-nag-message>');
+    item.attr('id', this.nagMessageId);
     // compile
     this.nagMessageElement = this.$compile(item)(angular.element(this.$document.find('body')[0]).scope());
   }
 
   /**
    * Show nag message
+   * @returns {boolean} - true if successful
    */
   showLicenseMessage() {
-    this.$document.find('body').addClass('license-message-indent');
-    this.cheBodyInjectorSvc.addElement(this.nagMessageElement);
+    //the parent of the new element
+    let parentElement = this.$document.find('body');
+    let itemId = this.nagMessageElement.attr('id');
+
+    if (!itemId) {
+      return false;
+    }
+
+    let oldItem = this.$document[0].getElementById(itemId);
+    if (oldItem) {
+      oldItem.remove();
+    } else {
+      parentElement.addClass('license-message-indent');
+    }
+
+    parentElement.append(this.nagMessageElement);
+    return true;
   }
+
 
   /**
    * hide nag message
+   * @returns {boolean} - true if successful
    */
   hideLicenseMessage() {
-    this.cheBodyInjectorSvc.removeElement(this.nagMessageElement);
-    this.$document.find('body').removeClass('license-message-indent');
+    let findElement = this.$document[0].getElementById(this.nagMessageId);
+
+    if (findElement) {
+      findElement.remove();
+      this.$document.find('body').removeClass('license-message-indent');
+      return true;
+    }
+
+    return false;
   }
 
 }

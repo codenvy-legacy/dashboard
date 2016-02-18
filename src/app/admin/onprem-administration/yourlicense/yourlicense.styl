@@ -16,6 +16,12 @@
  * from Codenvy S.A..
  */
 
+.onprem-license-loader
+  min-height 5px
+
+.onprem-license
+  margin-top 5px
+
 .onprem-license .che-label-container-row
   display inline-block
 
@@ -33,3 +39,39 @@
 .onprem-license-info-row
   margin-left 5px
   margin-bottom 2px
+
+.onprem-license .license-form
+  display flex
+  margin-top 15px
+  margin-bottom 10px
+
+.onprem-license .license-form .input-part textarea
+  width 100%
+  height 260px
+  padding 5px
+  resize none
+  outline none
+  border 1px solid $list-separator-color
+
+.onprem-license .license-form .input-part textarea[readonly]
+  che-brightness(90%)
+
+.onprem-license .license-form .input-part .license-state-info
+  height 18px
+
+.onprem-license .license-form .input-part,
+.onprem-license .license-form .buttons-part
+  float left
+.onprem-license .license-form .buttons-part button
+  text-transform capitalize
+  margin-left 20px
+
+.onprem-license a
+  color inherit
+  text-decoration underline
+
+.onprem-license .error-color
+  color $error-color
+
+.onprem-license .valid-color
+  color $secondary-color

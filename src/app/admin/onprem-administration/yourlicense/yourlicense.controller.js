@@ -20,15 +20,16 @@ export class OnPremisesAdminYourLicenseCtrl {
    * Default constructor.
    * @ngInject for Dependency injection
    */
-  constructor(imsArtifactApi, imsLicenseApi) {
-    'ngInject';
-
+  constructor(imsLicenseApi, imsArtifactApi, cheNotification) {
     this.imsLicenseApi = imsLicenseApi;
+    this.imsArtifactApi = imsArtifactApi;
+    this.cheNotification = cheNotification;
 
     this.license = imsLicenseApi.getLicense();
 
     let artifactsList = imsArtifactApi.getInstalledArtifactsList();
 
+    this.isLoading = true;
     artifactsList.then((artifacts) => {
       if (artifacts) {
         for (let artifact of artifacts) {
@@ -38,26 +39,88 @@ export class OnPremisesAdminYourLicenseCtrl {
           }
         }
       }
+    }, (error)=> {
+      this.isLoading = false;
+      this.cheNotification.showError(error.data.message ? error.data.message : 'Installation manager server error.');
     });
 
-    this.updateLicenseState();
+    this.checkLicense();
+
+    this.numberOfFreeUsers = imsLicenseApi.getNumberOfFreeUsers();
   }
 
+
   /**
-   * Update license's state
+   * Update license state
    */
   updateLicenseState() {
+    this.isLicenseExpired = !this.license.properties || this.license.properties.isExpired === 'true';
+    this.licenseState = 'LICENSE';
+    this.newLicense = angular.copy(this.license.key);
+    this.maxUsers = this.imsLicenseApi.getNumberOfAllowedUsers();
+    //change date format from 'yyyy/mm/dd' to 'mm/dd/yyyy'
+    this.expirationDate = this.license.properties.EXPIRATION.replace( /(\d{4})\/(\d{2})\/(\d{2})/, "$2/$3/$1");
+    this.isLoading = false;
+    this.isLicenseInvalid = false;
+  }
+
+
+  /**
+   * Check license
+   */
+  checkLicense() {
     if (this.license.key) {
-      this.licenseState = 'LICENSE';
-      this.maxUsers = this.imsLicenseApi.getNumberOfAllowedUsers();
+      this.updateLicenseState();
     } else {
       this.imsLicenseApi.fetchLicense().then(() => {
-        this.licenseState = 'LICENSE';
-        this.maxUsers = this.imsLicenseApi.getNumberOfAllowedUsers();
+        this.updateLicenseState();
       }, () => { //if no license
+        this.isLoading = false;
         this.licenseState = 'NO_LICENSE';
+        this.newLicense = null;
       });
     }
+  }
+
+
+  /**
+   * Delete current  license
+   */
+  deleteLicense() {
+    let promise = this.imsLicenseApi.deleteLicense();
+
+    this.isLoading = true;
+    promise.then(()=> {
+      this.isLoading = false;
+      this.cheNotification.showInfo('License successfully deleted.');
+      this.licenseState = 'NO_LICENSE';
+      this.newLicense = null;
+    }, (error)=> {
+      this.isLoading = false;
+      this.cheNotification.showError(error.data.message ? error.data.message : 'License server error.');
+    });
+  }
+
+
+  /**
+   * Add new license
+   */
+  addLicense() {
+    let promise = this.imsLicenseApi.addLicense(this.newLicense);
+
+    this.isLoading = true;
+    promise.then(()=> {
+      this.isLoading = false;
+      this.isLicenseInvalid = false;
+      this.cheNotification.showInfo('License successfully added.');
+      this.imsLicenseApi.fetchLicenseProperties().then(()=> {
+        this.checkLicense();
+      });
+    }, (error)=> {
+      this.isLoading = false;
+      this.isLicenseInvalid = true;
+      this.cheNotification.showError(error.data.message ? error.data.message : 'License server error.');
+    });
   }
 
 }
