@@ -83,13 +83,13 @@ export class LoadFactoryCtrl {
     switch (createPolicy) {
       case 'perUser' :
         workspace = this.lodash.find(this.workspaces, (w) => {
-          return this.factory.id === w.attributes.factoryId;
+          return this.factory.id === w.config.attributes.factoryId;
         });
         break;
       case 'perAccount' :
         //TODO when account is ready
         workspace = this.lodash.find(this.workspaces, (w) => {
-          return this.factory.workspace.name === w.name;
+          return this.factory.workspace.name === w.config.name;
         });
         break;
       case 'perClick' :
@@ -120,13 +120,13 @@ export class LoadFactoryCtrl {
    * Create workspace from factory config.
    */
   createWorkspace() {
-    let workspace = this.factory.workspace;
+    let config = this.factory.workspace;
     //set factory attribute:
-    workspace.attributes.factoryId = this.factory.id;
-    workspace.name = this.getWorkspaceName(workspace.name);
+    config.attributes.factoryId = this.factory.id;
+    config.name = this.getWorkspaceName(config.name);
 
     //TODO: fix account when ready:
-    let creationPromise = this.cheAPI.getWorkspace().createWorkspaceFromConfig(null, workspace);
+    let creationPromise = this.cheAPI.getWorkspace().createWorkspaceFromConfig(null, config);
     creationPromise.then((data) => {
       this.$timeout(() => {this.startWorkspace(data); }, 1000);
     }, (error) => {
@@ -170,7 +170,7 @@ export class LoadFactoryCtrl {
     }
 
     this.loadFactoryService.goToNextStep();
-    let startWorkspacePromise = this.cheAPI.getWorkspace().startWorkspace(workspace.id, workspace.defaultEnvName);
+    let startWorkspacePromise = this.cheAPI.getWorkspace().startWorkspace(workspace.id, workspace.config.defaultEnvName);
 
     this.subscribeOnEvents(workspace, bus);
     startWorkspacePromise.then((data) => {
@@ -180,8 +180,8 @@ export class LoadFactoryCtrl {
 
   subscribeOnEvents(data, bus){
     // get channels
-    let environments = data.environments;
-    let envName = data.defaultEnv;
+    let environments = data.config.environments;
+    let envName = data.config.defaultEnv;
     let defaultEnvironment = this.lodash.find(environments, (environment) => {
         return environment.name === envName;
     });
@@ -349,7 +349,7 @@ export class LoadFactoryCtrl {
   }
 
   getWorkspace() {
-    return this.workspace.name;
+    return this.workspace.config.name;
   }
 
   getStepText(stepNumber) {

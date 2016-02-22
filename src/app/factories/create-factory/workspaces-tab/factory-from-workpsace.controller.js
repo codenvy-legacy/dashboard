@@ -36,7 +36,7 @@ export class FactoryFromWorkspaceCtrl {
 
     this.filtersWorkspaceSelected = {};
 
-    this.workspaceFilter = {name: ''};
+    this.workspaceFilter = {config:{name: ''}};
 
     this.isLoading = true;
 
@@ -103,8 +103,8 @@ export class FactoryFromWorkspaceCtrl {
    */
   getWorkspaceName(workspaceId) {
     let workspace = this.workspacesById.get(workspaceId);
-    if (workspace && workspace.name) {
-      return workspace.name;
+    if (workspace && workspace.config.name) {
+      return workspace.config.name;
     }
     return '';
   }

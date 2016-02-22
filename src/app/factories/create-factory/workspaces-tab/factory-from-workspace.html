@@ -20,7 +20,7 @@
 <md-content class="factory-from-workspace" flex>
   <div class="factory-from-workspace-search">
     <che-search che-placeholder="Search for workspaces"
-                ng-model="factoryFromWorkspaceCtrl.workspaceFilter.name"></che-search>
+                ng-model="factoryFromWorkspaceCtrl.workspaceFilter.config.name"></che-search>
   </div>
   <span class="projects-list-workspace-name">{{factoryFromWorkspaceCtrl.getWorkspaceName(workspaceId)}}</span>
                   <span ng-show="(workspaces | filter:factoryFromWorkspaceCtrl.workspaceFilter).length == 0 && workspaces.length > 0"
@@ -41,7 +41,7 @@
              layout-align-gt="start center"
              layout-align-sm="center center">
           <div class="project-name">
-            <a class="codenvy-hover">{{workspace.name}}</a>
+            <a class="codenvy-hover">{{workspace.config.name}}</a>
           </div>
         </div>
       </div>
