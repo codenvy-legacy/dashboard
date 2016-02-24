@@ -24,7 +24,7 @@ export class FactoryDetailsCtrl {
    * Default constructor that is using resource injection
    * @ngInject for Dependency injection
    */
-  constructor($route, codenvyAPI, cheNotification) {
+  constructor($route, $routeParams, $location, codenvyAPI, cheNotification) {
     'ngInject';
 
     let factoryId = $route.current.params.id;
@@ -40,12 +40,23 @@ export class FactoryDetailsCtrl {
       console.log('error', error);
     });
 
-    this.toolbarIcons = [
-//      {name: 'favorite', font: 'material-design icon-ic_star_24px'},
-//      {name: 'share', font: 'material-design icon-ic_share_24px'}
-    ];
-
+    //search the selected tab
+    let tabName = $routeParams.tabName;
+    if (!tabName) {
+      $location.path('/factory/' + factoryId);
+    } else {
+      switch (tabName) {
+        case 'info':
+          this.selectedTabIndex = 0;
+          break;
+        case 'configure':
+          this.selectedTabIndex = 1;
+          break;
+        default:
+          $location.path('/factory/' + factoryId + '/info');
+          break;
+      }
+    }
   }
-
 }
 

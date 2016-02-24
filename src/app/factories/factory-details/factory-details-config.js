@@ -26,11 +26,14 @@ export class FactoryDetailsConfig {
 
     // config routes
     register.app.config(function ($routeProvider) {
-      $routeProvider.accessWhen('/factory/:id', {
+      let locationProvider = {
         templateUrl: 'app/factories/factory-details/factory-details.html',
         controller: 'FactoryDetailsCtrl',
         controllerAs: 'factoryDetailsCtrl'
-      });
+      };
+
+      $routeProvider.accessWhen('/factory/:id', locationProvider)
+        .accessWhen('/factory/:id/:tabName', locationProvider);
 
     });
 
