@@ -24,14 +24,14 @@
   </parent>
   <groupId>com.codenvy.dashboard</groupId>
   <artifactId>dashboard-war</artifactId>
-  <version>4.0.0-RC7</version>
+  <version>4.0.0-RC8-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>Codenvy Dashboard :: Web App</name>
   <inceptionYear>2015</inceptionYear>
   <scm>
     <connection>scm:git:git@github.com:codenvy/dashboard.git</connection>
     <developerConnection>scm:git:git@github.com:codenvy/dashboard.git</developerConnection>
-    <tag>4.0.0-RC7</tag>
+    <tag>HEAD</tag>
     <url>https://github.com/codenvy/dashboard</url>
   </scm>
   <repositories>
