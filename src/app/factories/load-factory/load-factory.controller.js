@@ -24,13 +24,14 @@ export class LoadFactoryCtrl {
    * Default constructor that is using resource
    * @ngInject for Dependency injection
    */
-  constructor(cheAPI, codenvyAPI, $websocket, $scope, $route, $timeout, $mdDialog, loadFactoryService, lodash, $location) {
+  constructor(cheAPI, codenvyAPI, $websocket, $scope, $route, $timeout, $mdDialog, loadFactoryService, lodash, $location, routeHistory) {
     this.cheAPI = cheAPI;
     this.codenvyAPI = codenvyAPI;
     this.$websocket = $websocket;
     this.$timeout = $timeout;
     this.$mdDialog = $mdDialog;
     this.$location = $location;
+    this.routeHistory = routeHistory;
     this.loadFactoryService = loadFactoryService;
     this.lodash = lodash;
     this.workspaces = [];
@@ -39,6 +40,7 @@ export class LoadFactoryCtrl {
     this.websocketReconnect = 50;
 
     angular.element('#codenvynavmenu').hide();
+    angular.element(document.querySelectorAll('.che-footer')).hide();
 
     this.loadFactoryService.resetLoadProgress();
     this.loadFactoryService.setLoadFactoryInProgress(true);
@@ -75,8 +77,8 @@ export class LoadFactoryCtrl {
   }
 
   /**
-  * Detect workspace to start: create new one or get created one.
-  */
+   * Detect workspace to start: create new one or get created one.
+   */
   getWorkspaceToStart() {
     let createPolicy = (this.factory.policies) ? this.factory.policies.create : 'perClick';
     var workspace = null;
@@ -142,8 +144,8 @@ export class LoadFactoryCtrl {
     if (this.workspaces.size === 0) {
       return name;
     }
+    let existingNames = this.lodash.pluck(this.workspaces, 'config.name');
 
-    let existingNames = this.lodash.pluck(this.workspaces, 'name');
     if (existingNames.indexOf(name) < 0) {
       return name;
     }
@@ -170,7 +172,7 @@ export class LoadFactoryCtrl {
     }
 
     this.loadFactoryService.goToNextStep();
-    let startWorkspacePromise = this.cheAPI.getWorkspace().startWorkspace(workspace.id, workspace.config.defaultEnvName);
+    let startWorkspacePromise = this.cheAPI.getWorkspace().startWorkspace(workspace.id, workspace.config.defaultEnv);
 
     this.subscribeOnEvents(workspace, bus);
     startWorkspacePromise.then((data) => {
@@ -183,19 +185,28 @@ export class LoadFactoryCtrl {
     let environments = data.config.environments;
     let envName = data.config.defaultEnv;
     let defaultEnvironment = this.lodash.find(environments, (environment) => {
-        return environment.name === envName;
+      return environment.name === envName;
     });
 
-    let channels = defaultEnvironment.machineConfigs[0].channels;
-    let statusChannel = channels.status;
-    let outputChannel = channels.output;
-    let agentChannel = 'workspace:' + data.id + ':ext-server:output';
+
+
+    let machineConfigsLinks = defaultEnvironment.machineConfigs[0].links;
+    let findStatusLink = this.lodash.find(machineConfigsLinks, (machineConfigsLink) => {
+      return machineConfigsLink.rel === 'get machine status channel';
+    });
+    let findOutputLink = this.lodash.find(machineConfigsLinks, (machineConfigsLink) => {
+      return machineConfigsLink.rel === 'get machine logs channel';
+    });
 
     let workspaceId = data.id;
 
-      // for now, display log of status channel in case of errors
+    let agentChannel = 'workspace:' + data.id + ':ext-server:output';
+    let statusChannel = findStatusLink ? findStatusLink.parameters[0].defaultValue : null;
+    let outputChannel = findOutputLink ? findOutputLink.parameters[0].defaultValue : null;
+
+    // for now, display log of status channel in case of errors
     bus.subscribe(statusChannel, (message) => {
-        if (message.eventType === 'DESTROYED' && message.workspaceId === data.id) {
+      if (message.eventType === 'DESTROYED' && message.workspaceId === data.id) {
         this.getLoadingSteps()[this.getCurrentProgressStep()].hasError = true;
 
         // need to show the error
@@ -316,13 +327,13 @@ export class LoadFactoryCtrl {
     promise = this.cheAPI.getProject().importProject(workspaceId, project.name, project.source);
 
     // needs to update configuration of the project
-    promise = promise.then(() => {
+    let updatePromise = promise.then(() => {
       this.cheAPI.getProject().updateProject(workspaceId, project.name, project).$promise;
     }, (error) => {
       this.handleError(error);
     });
 
-    promise.then(() => {
+    updatePromise.then(() => {
       this.projectsToImport--;
       if (this.projectsToImport === 0) {
         this.finish();
@@ -345,7 +356,16 @@ export class LoadFactoryCtrl {
 
   finish() {
     this.loadFactoryService.goToNextStep();
-    this.$location.path(this.getIDELink());
+
+    // people should go back to the dashboard after factory is initialized
+    this.routeHistory.pushPath('/');
+
+    this.$location.path(this.getIDELink()).search('ideParams', ['factory:' + this.factory.id, 'workspaceId:' + this.workspace.id]);
+
+    // restore elements
+    angular.element('#codenvynavmenu').show();
+    angular.element(document.querySelectorAll('.che-footer')).show();
+
   }
 
   getWorkspace() {
@@ -377,23 +397,7 @@ export class LoadFactoryCtrl {
   }
 
   getIDELink() {
-    let link = '/ide/' + this.getWorkspace();
-
-    if (this.factory.ide && this.factory.ide.onProjectsLoaded && this.factory.ide.onProjectsLoaded.actions) {
-      let actions = this.factory.ide.onProjectsLoaded.actions;
-      let ideAction = '';
-      actions.forEach((action) => {
-        ideAction = ideAction + 'action=' + action.id;
-        if (action.properties && action.properties.length > 0) {
-          let params = '';
-          action.properties.forEach((value, key) => {
-            params = params + key + '=' + value + ';';
-          });
-          ideAction = ideAction + ':' + params + '&'
-        }
-      });
-      link = link + '?' + ideAction;
-    }
-    return link;
+    return '/ide/' + this.getWorkspace();
   }
+
 }
