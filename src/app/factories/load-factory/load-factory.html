@@ -18,33 +18,11 @@
 
 -->
 <div class="load-factory-main-container">
-<div flex style="height: 100%" class="ide-loader load-factory-main-panel">
-  <div class="create-project-progress-panel-bottom">
-    <div ng-repeat="step in loadFactoryCtrl.getLoadingSteps()">
-      <div ng-if="$index < (loadFactoryCtrl.getLoadingSteps().length -1)"
-           class="create-project-panel-progress-items"
-           ng-class="{'create-project-panel-progress-items-enabled' : (loadFactoryCtrl.getCurrentProgressStep() >= $index), 'create-project-panel-progress-items-error' : loadFactoryCtrl.getLoadingSteps()[$index].hasError}"
-        >
-        <div  layout="row" layout-align="start center">
-          <div class="create-project-panel-progress-item-number" ng-class="{'create-project-panel-progress-item-number-in-progress' : (loadFactoryCtrl.getCurrentProgressStep() === $index && !loadFactoryCtrl.getLoadingSteps()[$index].hasError)}">{{$index + 1}}</div>
-          <div flex>{{loadFactoryCtrl.getStepText($index)}}</div>
-          <che-button-danger ng-show="loadFactoryCtrl.getLoadingSteps()[$index].hasError"
-                             che-button-title="Retry" ng-click="loadFactoryCtrl.resetCreateProgress()" ></che-button-danger>
-        </div>
-      </div>
-      <div ng-if="$index < (loadFactoryCtrl.getLoadingSteps().length - 1)" layout="row">
-        <div ng-class="{'create-project-panel-progress-item-link-enabled' : (loadFactoryCtrl.getCurrentProgressStep() > $index), 'create-project-panel-progress-item-link-error' : loadFactoryCtrl.getLoadingSteps()[$index].hasError}"
-             class="create-project-panel-progress-item-link">&nbsp;</div>
+  <div flex style="height: 100%" class="ide-loader" layout-align="center center" layout="row">
+    <div class="load-factory-content">
 
-        <textarea che-auto-scroll ng-show="loadFactoryCtrl.getLoadingSteps()[$index].logs.length > 0" flex class="create-project-panel-progress-item-output" rows="5" ng-model="loadFactoryCtrl.getLoadingSteps()[$index].logs"></textarea>
-      </div>
-    </div>
-    <div ng-class="{'create-project-panel-progress-lastitem-enabled' : (loadFactoryCtrl.getCurrentProgressStep() === (loadFactoryCtrl.getLoadingSteps().length - 1)), 'create-project-panel-progress-lastitem-error' : loadFactoryCtrl.getLoadingSteps()[$index].hasError}"
-         class="create-project-panel-progress-lastitem" layout="row" layout-align="end start">
-      <div layout="column" flex layout-align="start end">
-        &nbsp;
+      <cdvy-loader flex cdvy-model="loadFactoryCtrl"></cdvy-loader>
+
     </div>
   </div>
-</div>
-</div>
 </div>

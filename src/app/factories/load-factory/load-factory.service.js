@@ -36,12 +36,11 @@ export class LoadFactoryService {
 
 
     this.loadingSteps = [
-      {text: 'Load factory data', inProgressText: 'Loading factory data', logs: '', hasError: false},
-      {text: 'Initialize workspace', inProgressText: 'Initializing workspace', logs: '', hasError: false},
-      {text: 'Start workspace', inProgressText: 'Starting workspace', logs: '', hasError: false},
-      {text: 'Start workspace agent', inProgressText: 'Starting workspace agent', logs: '', hasError: false},
-      {text: 'Open IDE', inProgressText: 'Opening IDE', logs: '', hasError: false},
-      {text: 'IDE started', inProgressText: 'IDE started', logs: '', hasError: false}
+      {text: 'Loading factory', inProgressText: '', logs: '', hasError: false},
+      {text: 'Initializing workspace', inProgressText: 'Provision workspace and associating it with the existing user', logs: '', hasError: false},
+      {text: 'Starting workspace runtime', inProgressText: 'Retrieving the stack\'s image and launching it', logs: '', hasError: false},
+      {text: 'Starting workspace agent', inProgressText: 'Agents provide RESTful services like intellisense and SSH', logs: '', hasError: false},
+      {text: 'Open IDE', inProgressText: '', logs: '', hasError: false}
     ];
 
     this.popupVisible = false;

@@ -39,12 +39,22 @@ export class LoadFactoryCtrl {
 
     this.websocketReconnect = 50;
 
-    angular.element('#codenvynavmenu').hide();
-    angular.element(document.querySelectorAll('.che-footer')).hide();
+    this.hideMenuAndFooter();
 
     this.loadFactoryService.resetLoadProgress();
     this.loadFactoryService.setLoadFactoryInProgress(true);
     this.getFactoryData($route.current.params.id);
+
+  }
+
+  hideMenuAndFooter() {
+    angular.element('#codenvynavmenu').hide();
+    angular.element(document.querySelectorAll('.che-footer')).hide();
+  }
+
+  restoreMenuAndFooter() {
+    angular.element('#codenvynavmenu').show();
+    angular.element(document.querySelectorAll('.che-footer')).show();
   }
 
   /**
@@ -177,6 +187,8 @@ export class LoadFactoryCtrl {
     this.subscribeOnEvents(workspace, bus);
     startWorkspacePromise.then((data) => {
       console.log('Workspace started', data);
+    }, (error) => {
+      this.handleError(error);
     });
   }
 
