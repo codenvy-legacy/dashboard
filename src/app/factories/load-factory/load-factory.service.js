@@ -40,8 +40,8 @@ export class LoadFactoryService {
       {text: 'Initialize workspace', inProgressText: 'Initializing workspace', logs: '', hasError: false},
       {text: 'Start workspace', inProgressText: 'Starting workspace', logs: '', hasError: false},
       {text: 'Start workspace agent', inProgressText: 'Starting workspace agent', logs: '', hasError: false},
-      {text: 'Import project(s)', inProgressText: 'Importing project(s)', logs: '', hasError: false},
-      {text: 'Project(s) imported', inProgressText: 'Opening workspace', logs: '', hasError: false}
+      {text: 'Open IDE', inProgressText: 'Opening IDE', logs: '', hasError: false},
+      {text: 'IDE started', inProgressText: 'IDE started', logs: '', hasError: false}
     ];
 
     this.popupVisible = false;

@@ -204,7 +204,15 @@ export class LoadFactoryCtrl {
     let statusChannel = findStatusLink ? findStatusLink.parameters[0].defaultValue : null;
     let outputChannel = findOutputLink ? findOutputLink.parameters[0].defaultValue : null;
 
-    // for now, display log of status channel in case of errors
+    bus.subscribe(outputChannel, (message) => {
+      if (this.getLoadingSteps()[this.getCurrentProgressStep()].logs.length > 0) {
+        this.getLoadingSteps()[this.getCurrentProgressStep()].logs = this.getLoadingSteps()[this.getCurrentProgressStep()].logs + '\n' + message;
+      } else {
+        this.getLoadingSteps()[this.getCurrentProgressStep()].logs = message;
+      }
+    });
+
+      // for now, display log of status channel in case of errors
     bus.subscribe(statusChannel, (message) => {
       if (message.eventType === 'DESTROYED' && message.workspaceId === data.id) {
         this.getLoadingSteps()[this.getCurrentProgressStep()].hasError = true;
@@ -235,8 +243,8 @@ export class LoadFactoryCtrl {
     // subscribe to workspace events
     bus.subscribe('workspace:' + workspaceId, (message) => {
       if (message.eventType === 'RUNNING' && message.workspaceId === workspaceId) {
-      this.loadFactoryService.setCurrentProgressStep(4);
-      this.importProjects(bus);
+        this.loadFactoryService.setCurrentProgressStep(4);
+        this.finish();
     }
     });
 
@@ -253,13 +261,6 @@ export class LoadFactoryCtrl {
     }
     });
 
-    bus.subscribe(outputChannel, (message) => {
-      if (this.getLoadingSteps()[this.getCurrentProgressStep()].logs.length > 0) {
-      this.getLoadingSteps()[this.getCurrentProgressStep()].logs = this.getLoadingSteps()[this.getCurrentProgressStep()].logs + '\n' + message;
-    } else {
-      this.getLoadingSteps()[this.getCurrentProgressStep()].logs = message;
-    }
-    });
   }
 
   importProjects(bus) {
