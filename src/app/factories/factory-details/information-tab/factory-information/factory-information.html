@@ -26,20 +26,17 @@
                 ng-model="factoryInformationCtrl.copyOriginFactory.name">
     </che-input>
   </ng-form>
-  <div layout="column" flex layout-align="space-around start">
     <che-text-info che-label-name="URL"
                     che-text="factoryInformationCtrl.factory.idURL ? factoryInformationCtrl.factory.idURL : 'No value'"
                     che-href="factoryInformationCtrl.factory.idURL"
-                    che-copy-clipboard="true"></che-text-info>
-    <che-text-info class="che-text-info-subline"
-                    ng-show="factoryInformationCtrl.factory.nameURL"
+                    che-copy-clipboard="true" class="factory-information-panel-spacing factory-information-panel-item factory-information-panel-url"></che-text-info>
+    <che-text-info ng-show="factoryInformationCtrl.factory.nameURL"
                    che-text="factoryInformationCtrl.factory.nameURL ? factoryInformationCtrl.factory.nameURL : 'No value'"
                    che-href="factoryInformationCtrl.factory.nameURL"
-                   che-copy-clipboard="true"></che-text-info>
-    <che-text-info che-label-name="Creation Date"
+                   che-copy-clipboard="true" class="factory-information-panel-item che-text-info-subline"></che-text-info>
+    <che-text-info che-label-name="Creation Date" class="factory-information-panel-spacing factory-information-panel-caption"
                     che-text="factoryInformationCtrl.factory.originFactory.creator.created | amDateFormat:'Do MMMM YYYY'">
     </che-text-info>
-  </div>
   <che-button-primary
     ng-disabled="factoryInformationForm.$invalid
                  || (factoryInformationCtrl.copyOriginFactory.name === factoryInformationCtrl.factory.originFactory.name)"

@@ -23,7 +23,7 @@
              che-search-model="listFactoriesCtrl.factoriesFilter.originFactory.name"
              che-add-button-name="Create Factory"
              che-add-button-href="#/factories/create-factory"></che-toolbar>
-<md-content layout="column" layout-fill class="factories-list-factories ng-scope md-maincontent-theme-theme">
+<md-content md-scroll-y flex layout="column" md-theme="maincontent-theme" class="factories-list-factories">
   <md-progress-linear md-mode="indeterminate" class="factories-list-factories-progress"
                       ng-if="listFactoriesCtrl.isLoading"></md-progress-linear>
   <md-content flex class="md-maincontent-theme-theme" ng-show="!listFactoriesCtrl.isLoading"
