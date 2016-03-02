@@ -254,6 +254,19 @@ export class LoadFactoryCtrl {
 
     // subscribe to workspace events
     bus.subscribe('workspace:' + workspaceId, (message) => {
+
+      if (message.eventType === 'ERROR' && message.workspaceId === workspaceId) {
+        // need to show the error
+        this.$mdDialog.show(
+          this.$mdDialog.alert()
+            .title('Error when starting agent')
+            .content('Unable to start workspace agent. Error when trying to start the workspace agent: ' + message.error)
+            .ariaLabel('Workspace agent start')
+            .ok('OK')
+        );
+        this.getLoadingSteps()[this.getCurrentProgressStep()].hasError = true;
+      }
+
       if (message.eventType === 'RUNNING' && message.workspaceId === workspaceId) {
         this.loadFactoryService.setCurrentProgressStep(4);
         this.finish();
