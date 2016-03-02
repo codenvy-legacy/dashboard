@@ -181,10 +181,15 @@ export class LoadFactoryCtrl {
       return;
     }
 
-    this.loadFactoryService.goToNextStep();
-    let startWorkspacePromise = this.cheAPI.getWorkspace().startWorkspace(workspace.id, workspace.config.defaultEnv);
-
     this.subscribeOnEvents(workspace, bus);
+
+    this.$timeout(() => {this.doStartWorkspace(workspace); }, 2000);
+  }
+
+  doStartWorkspace(workspace) {
+    let startWorkspacePromise = this.cheAPI.getWorkspace().startWorkspace(workspace.id, workspace.config.defaultEnv);
+    this.loadFactoryService.goToNextStep();
+
     startWorkspacePromise.then((data) => {
       console.log('Workspace started', data);
     }, (error) => {
