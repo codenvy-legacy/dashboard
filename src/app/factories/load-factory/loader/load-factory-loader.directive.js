@@ -23,7 +23,8 @@ export class CodenvyLoader {
    * Default constructor that is using resource
    * @ngInject for Dependency injection
    */
-  constructor () {
+  constructor ($location) {
+    this.$location = $location;
     this.restrict = 'E';
     this.templateUrl = 'app/factories/load-factory/loader/load-factory-loader.html';
 
@@ -96,7 +97,7 @@ export class CodenvyLoader {
 
     $scope.backToDashboard = () => {
       $scope.model.restoreMenuAndFooter();
-      window.location = '#/factory/' + $scope.model.factory.id;
+      this.$location.path('/factory/' + $scope.model.factory.id);
     };
   }
 }
