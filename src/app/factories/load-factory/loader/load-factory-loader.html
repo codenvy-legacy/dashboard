@@ -204,9 +204,9 @@
                   <div>{{model.getLoadingSteps()[$index].inProgressText}}</div>
                 </div>
                 <div class="button"></div>
-                <div class="output">
+                <div class="output" che-auto-scroll ng-model="model.getLoadingSteps()[$index].logs">
                   <div>
-                    <code che-format-output che-auto-scroll ng-show="model.getLoadingSteps()[$index].logs.length > 0" flex rows="5" ng-model="model.getLoadingSteps()[$index].logs">{{model.getLoadingSteps()[$index].logs}}</code>
+                    <code che-format-output ng-show="model.getLoadingSteps()[$index].logs.length > 0" flex rows="5" ng-model="model.getLoadingSteps()[$index].logs">{{model.getLoadingSteps()[$index].logs}}</code>
                   </div>
                 </div>
               </div>
