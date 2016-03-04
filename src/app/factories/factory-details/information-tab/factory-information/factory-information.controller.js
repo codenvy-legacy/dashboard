@@ -38,8 +38,8 @@ export class FactoryInformationCtrl {
     });
   }
 
-  //Set factory content.
-  setFactory(factory) {
+  //Udpate factory content.
+  updateFactory(factory) {
 
     let promise = this.codenvyAPI.getFactory().setFactory(factory);
 

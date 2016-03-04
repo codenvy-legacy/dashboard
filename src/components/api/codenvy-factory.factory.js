@@ -158,17 +158,12 @@ export class CodenvyFactory {
         return;
       }
 
-      let seeLink = [];
-      this.lodash.find(tmpFactory.links, function (link) {
-        if (link.rel === 'accept' || link.rel === 'accept-named') {
-          seeLink.push(link.href);
-        }
-      });
-
       //set default fields
       if (!tmpFactory.name) {
         tmpFactory.name = '';
       }
+
+      let seeLink = this.detectLinks(tmpFactory);
 
       let findFactory = this.factoriesById.get(factoryId);
       let factory = {
@@ -216,6 +211,24 @@ export class CodenvyFactory {
   }
 
   /**
+   * Detects links for factory acceptance (with id and named one)
+   * @param factory factory to detect links
+   * @returns links acceptance links
+   */
+  detectLinks(factory) {
+    var links = [];
+
+    this.lodash.find(factory.links, function (link) {
+      if (link.rel === 'accept' || link.rel === 'accept-named') {
+        links.push(link.href);
+      }
+    });
+
+    return links;
+  }
+
+
+  /**
    * Get the factory from factoryMap by factoryId
    * @param factoryId the factory ID
    * @returns factory
@@ -235,13 +248,19 @@ export class CodenvyFactory {
     let promise = this.remoteFactoryAPI.put({factoryId: originFactory.id}, originFactory).$promise;
 
     // check if was OK or not
-    promise.then(() => {
+    promise.then((updatedFactory) => {
       let factory = this.factoriesById.get(originFactory.id);
       if (factory) {
-        factory.originFactory = originFactory;
+        updatedFactory.name = updatedFactory.name ? updatedFactory.name : '';
+
+        factory.originFactory = updatedFactory;
+        var seeLink = this.detectLinks(updatedFactory);
+        factory.idURL = seeLink[0];
+        factory.nameURL = seeLink[1];
 
         //update factories map
         this.factoriesById.set(originFactory.id, factory);//set factory
+
         //update factories array
         this.factories.length = 0;
         this.factoriesById.forEach((value)=> {
