@@ -26,3 +26,31 @@
   left 0
   right 0
   margin auto
+
+*[inner-class="password-meter"] .progress
+  margin 0
+  padding 0
+  height 8px
+  border none
+
+.password-meter
+  margin 0
+  padding 0
+  border none
+  height inherit
+
+.password-meter
+  border-radius 6px
+  transition width .6s ease
+
+.password-meter.danger
+  background-color $error-color
+
+.password-meter.warning
+  background-color $config-frame-warning-color
+
+.password-meter.success
+  background-color $auth-ok-color
+
+.password-meter span
+  display none
