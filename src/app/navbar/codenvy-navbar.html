@@ -25,7 +25,7 @@
         <che-button-dropdown che-button-dropdown-href="#/create-project" che-button-dropdown-label="New Project"
                              che-event-logger="new.project"
                              che-button-dropdown-controller="codenvyNavbarCtrl"
-                              ng-if="codenvyNavbarCtrl.isUser()"></che-button-dropdown>
+                             ng-if="codenvyNavbarCtrl.isUser()"></che-button-dropdown>
       </section>
       <section layout="column" layout-align="center center">&nbsp;</section>
       <md-divider md-theme="factory-theme"></md-divider>
@@ -43,8 +43,9 @@
               </md-button>
             </md-list-item>
             <ide-list-item-navbar></ide-list-item-navbar>
-            <md-list-item flex class="navbar-subsection-item"  ng-if="codenvyNavbarCtrl.isUser()">
-              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.dashboard}}" layout-align="left" target="_self">
+            <md-list-item flex class="navbar-subsection-item" ng-if="codenvyNavbarCtrl.isUser()">
+              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.dashboard}}" layout-align="left"
+                         target="_self">
                 <div class="navbar-item" layout="row" layout-align="start center">
                   <i class="fa fa-th-large icon">&nbsp;</i>
                   <span>Dashboard</span>
@@ -52,7 +53,8 @@
               </md-button>
             </md-list-item>
             <md-list-item flex class="navbar-subsection-item">
-              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.workspaces}}" layout-align="left" che-event-logger="workspaces">
+              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.workspaces}}" layout-align="left"
+                         che-event-logger="workspaces">
                 <div class="navbar-item" layout="row" layout-align="start center">
                   <i class="fa fa-server fa-lg icon">&nbsp;</i>
                   <span>Workspaces</span>
@@ -60,7 +62,8 @@
               </md-button>
             </md-list-item>
             <md-list-item flex class="navbar-subsection-item" ng-if="codenvyNavbarCtrl.isUser()">
-              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.projects}}" layout-align="left" che-event-logger="projects">
+              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.projects}}" layout-align="left"
+                         che-event-logger="projects">
                 <div class="navbar-item" layout="row" layout-align="start center">
                   <i class="fa fa-folder-open icon">&nbsp;</i>
                   <span>Projects</span>
@@ -68,7 +71,8 @@
               </md-button>
             </md-list-item>
             <md-list-item flex class="navbar-subsection-item" ng-if="codenvyNavbarCtrl.isFactoryServiceAvailable">
-              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.factories}}" layout-align="left" che-event-logger="factories">
+              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.factories}}" layout-align="left"
+                         che-event-logger="factories">
                 <div class="navbar-item" layout="row" layout-align="start center">
                   <i class="chefont cheico-rocket-chefont icon">&nbsp;</i>
                   <span>Factories</span>
@@ -117,7 +121,8 @@
                  ng-if="configMenuIsExpand">
           <md-list layout="column" flex>
             <md-list-item ng-show="codenvyNavbarCtrl.isAdminPluginServiceAvailable" flex class="navbar-subsection-item">
-              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.plugins}}" layout-align="left" che-event-logger="account">
+              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.plugins}}" layout-align="left"
+                         che-event-logger="account">
                 <div class="navbar-item" layout="row" layout-align="start center">Plug-Ins</div>
               </md-button>
             </md-list-item>
@@ -127,7 +132,8 @@
 
       <md-divider md-theme="factory-theme"></md-divider>
       <div class="admin-navbar-menu"
-           ng-show="codenvyNavbarCtrl.profile.attributes && codenvyNavbarCtrl.isUser() && codenvyNavbarCtrl.isAccountServiceAvailable" ng-init="isExpand=true">
+           ng-show="codenvyNavbarCtrl.profile.attributes && codenvyNavbarCtrl.isUser() && codenvyNavbarCtrl.isAccountServiceAvailable"
+           ng-init="isExpand=true">
         <div class="navbar-identity"
              flex layout="row" layout-align="start center" ng-click="isExpand=!isExpand">
       <span flex layout="row" layout-align="start center" layout-padding>
@@ -142,27 +148,31 @@
                  ng-if="isExpand">
           <md-list layout="column" flex>
             <md-list-item flex class="navbar-subsection-item">
-              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.account}}" layout-align="left" che-event-logger="account">
+              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.account}}" layout-align="left"
+                         che-event-logger="account">
                 <div class="navbar-item" layout="row"
                      layout-align="start center">Account
                 </div>
               </md-button>
             </md-list-item>
             <md-list-item flex class="navbar-subsection-item" ng-if="!codenvyNavbarCtrl.ims.isAvailable">
-              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.team}}" layout-align="left" che-event-logger="team">
+              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.team}}" layout-align="left"
+                         che-event-logger="team">
                 <div class="navbar-item" layout="row"
                      layout-align="start center">Team
                 </div>
               </md-button>
             </md-list-item>
             <md-list-item flex class="navbar-subsection-item" ng-if="codenvyNavbarCtrl.isSubscriptionServiceAvailable">
-              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.subscriptions}}" layout-align="left">
+              <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.subscriptions}}"
+                         layout-align="left">
                 <div class="navbar-item" layout="row" che-event-logger="subscriptions"
                      layout-align="start center">Subscriptions
                 </div>
               </md-button>
             </md-list-item>
-            <md-list-item flex class="navbar-subsection-item" ng-if="!codenvyNavbarCtrl.ims.isAvailable && codenvyNavbarCtrl.isInvoiceServiceAvailable">
+            <md-list-item flex class="navbar-subsection-item"
+                          ng-if="!codenvyNavbarCtrl.ims.isAvailable && codenvyNavbarCtrl.isInvoiceServiceAvailable">
               <md-button nav-bar-selected flex che-reload-href ng-href="{{codenvyNavbarCtrl.menuItemUrl.billing}}" layout-align="left">
                 <div class="navbar-item" layout="row" che-event-logger="billing-and-invoices"
                      layout-align="start center">Billing and Invoices
@@ -173,16 +183,13 @@
         </section>
       </div>
       <md-divider md-theme="factory-theme" ng-show="codenvyNavbarCtrl.isUser()"></md-divider>
-      <div class="help-menu">
-        <section class="left-sidebar-menu" layout="column" layout-align="center center">
-          <md-list layout="row">
-            <md-list-item>
-              <help-widget></help-widget>
-              <logout-widget></logout-widget>
-            </md-list-item>
-          </md-list>
-        </section>
-      </div>
+      <section class="left-sidebar-menu" layout="column" layout-align="center center">
+        <md-list layout="row">
+          <md-list-item>
+            <logout-widget></logout-widget>
+          </md-list-item>
+        </md-list>
+      </section>
     </div>
   </md-toolbar>
 </div>

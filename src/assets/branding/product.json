@@ -5,6 +5,7 @@
   "favicon": "favicon.ico",
   "ideResources": "/ide-resources/_app/",
   "helpPath": "https://codenvy.com/support/",
+  "helpTitle": "Help",
   "supportEmail": "wish@codenvy.com",
   "oauthDocs": "http://codenvy.readme.io/docs/authentication#oauth"
 }
