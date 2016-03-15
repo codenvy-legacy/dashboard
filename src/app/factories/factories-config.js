@@ -24,8 +24,6 @@ import {CodenvyFactoryItem} from './list-factories/factory-item/factory-item.dir
 import {LoadFactoryCtrl} from './load-factory/load-factory.controller';
 import {LoadFactoryService} from './load-factory/load-factory.service.js';
 
-import {CodenvyLoader} from './load-factory/loader/load-factory-loader.directive';
-
 export class FactoryConfig {
 
   constructor(register) {
@@ -36,8 +34,6 @@ export class FactoryConfig {
 
     register.controller('LoadFactoryCtrl', LoadFactoryCtrl);
     register.service('loadFactoryService', LoadFactoryService);
-
-    register.directive('cdvyLoader', CodenvyLoader);
 
     // config routes
     register.app.config(function ($routeProvider) {
