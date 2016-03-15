@@ -15,36 +15,25 @@
 'use strict';
 
 /**
- * Defines a directive for factory item in list.
+ * @ngdoc directive
+ * @name factories.directive:LastFactories
+ * @description This class is handling the directive of the listing last opened factories
  * @author Oleksii Orel
  */
-export class CodenvyFactoryItem {
+export class LastFactories {
+
 
   /**
-   * Default constructor.
+   * Default constructor that is using resource
+   * @ngInject for Dependency injection
    */
   constructor() {
     this.restrict = 'E';
-
-    this.templateUrl = 'app/factories/list-factories/factory-item/factory-item.html';
+    this.templateUrl = 'app/factories/last-factories/last-factories.html';
     this.replace = false;
-
-    this.controller = 'FactoryItemCtrl';
-    this.controllerAs = 'factoryItemCtrl';
-
+    this.controller = 'LastFactoriesController';
+    this.controllerAs = 'lastFactoriesController';
     this.bindToController = true;
-
-    // we require ngModel as we want to use it inside our directive
-    this.require = ['ngModel'];
-
-    // scope values
-    this.scope = {
-      factory: '=cdvyFactory',
-      isChecked: '=cdvyChecked',
-      isSelectable: '=cdvyIsSelectable',
-      isSelect: '=?ngModel'
-    };
-
   }
 
 }

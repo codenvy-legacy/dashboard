@@ -15,11 +15,12 @@
 'use strict';
 
 
+import {FactoryDetailsConfig} from './factory-details/factory-details-config';
+import {CreateFactoryConfig} from './create-factory/create-factory-config';
+import {LastFactoriesConfig} from './last-factories/last-factories-config';
 import {ListFactoriesCtrl} from './list-factories/list-factories.controller';
 import {FactoryItemCtrl} from './list-factories/factory-item/factory-item.controller';
 import {CodenvyFactoryItem} from './list-factories/factory-item/factory-item.directive';
-import {FactoryDetailsConfig} from './factory-details/factory-details-config';
-import {CreateFactoryConfig} from './create-factory/create-factory-config';
 import {LoadFactoryCtrl} from './load-factory/load-factory.controller';
 import {LoadFactoryService} from './load-factory/load-factory.service.js';
 
@@ -56,6 +57,7 @@ export class FactoryConfig {
     // config files
     new FactoryDetailsConfig(register);
     new CreateFactoryConfig(register);
+    new LastFactoriesConfig(register);
 
   }
 }

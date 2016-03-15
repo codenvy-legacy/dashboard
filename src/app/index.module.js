@@ -38,9 +38,8 @@ var DEV = true;
 initModule.controller('LoginCtrl', LoginCtrl);
 
 
-
 // config routes
-initModule.config(['$routeProvider', function ($routeProvider) {
+initModule.config(['$routeProvider', ($routeProvider) => {
   $routeProvider
     .accessWhen('/login', {
       templateUrl: 'app/login/login.html',
@@ -54,17 +53,18 @@ initModule.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 //add tasks to run
-initModule.run(['$rootScope', 'nagMessageService',
-  function ($rootScope, nagMessageService) {
-    $rootScope.$on('$viewContentLoaded', function () {
+initModule.run(['$rootScope', 'nagMessageService', 'cheUIElementsInjectorService',
+  ($rootScope, nagMessageService, cheUIElementsInjectorService) => {
+    $rootScope.$on('$viewContentLoaded', () => {
       nagMessageService.createLicenseMessage();
+      cheUIElementsInjectorService.addElementForInjection('dashboardPageContent', 'recentFactories', '<cdvy-last-factories></cdvy-last-factories>');
     });
-  }]);
+}]);
 
 // add interceptors
-initModule.factory('AuthInterceptor', function ($window, $cookies, $q, $location, $log) {
+initModule.factory('AuthInterceptor', ($window, $cookies, $q, $location, $log) => {
   return {
-    request: function(config) {
+    request: (config) => {
       //remove prefix url
       if (config.url.indexOf('https://codenvy.com/api') === 0) {
         config.url = config.url.substring('https://codenvy.com'.length);
@@ -77,10 +77,10 @@ initModule.factory('AuthInterceptor', function ($window, $cookies, $q, $location
       }
       return config || $q.when(config);
     },
-    response: function(response) {
+    response: (response) => {
       return response || $q.when(response);
     },
-    responseError: function (rejection) {
+    responseError: (rejection) => {
       // handle only api call
       if (rejection.config) {
         if (rejection.config.url.indexOf('localhost') > 0 || rejection.config.url.startsWith('/api/user') > 0) {
@@ -96,7 +96,7 @@ initModule.factory('AuthInterceptor', function ($window, $cookies, $q, $location
   };
 });
 
-initModule.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
+initModule.config(['$routeProvider', '$locationProvider', '$httpProvider', ($routeProvider, $locationProvider, $httpProvider) => {
 
   if (DEV) {
     console.log('adding auth interceptor');
@@ -105,10 +105,9 @@ initModule.config(['$routeProvider', '$locationProvider', '$httpProvider', funct
 }]);
 
 
-
-angular.module('ui.gravatar').config(['gravatarServiceProvider', function(gravatarServiceProvider) {
+angular.module('ui.gravatar').config(['gravatarServiceProvider', (gravatarServiceProvider) => {
   gravatarServiceProvider.defaults = {
-    size     : 43,
+    size: 43,
     default: 'mm'  // Mystery man as default for missing avatars
   };
 

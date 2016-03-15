@@ -41,7 +41,7 @@
       <che-list ng-show="(listFactoriesCtrl.factories | filter:listFactoriesCtrl.factoriesFilter).length > 0">
         <cdvy-factory-item
           ng-repeat="factory in listFactoriesCtrl.factories | filter:listFactoriesCtrl.factoriesFilter | orderBy:listFactoriesCtrl.factoriesOrderBy"
-          cdvy-factory="factory" ng-model="listFactoriesCtrl.factoriesSelectedStatus[factory.originFactory.id]"/>
+          cdvy-factory="factory" cdvy-is-selectable="true" ng-model="listFactoriesCtrl.factoriesSelectedStatus[factory.originFactory.id]"/>
       </che-list>
     </div>
   </md-content>

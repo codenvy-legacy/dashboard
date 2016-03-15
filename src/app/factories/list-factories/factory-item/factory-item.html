@@ -21,9 +21,12 @@
   <div layout-gt-sm="row" flex="100" layout-align-gt-sm="start center" layout="column" class="factory-list-row">
     <div class="factory-list-static-icon" layout-align="center center">
       <che-list-item-checked class="factory-type-icon"
-                              ng-model="factoryItemCtrl.isSelect"
+                             ng-model="factoryItemCtrl.isSelect"
+                             ng-show="factoryItemCtrl.isSelectable"
                              che-icon="chefont cheico-type-{{factoryItemCtrl.factory.originFactory.project.type}} cheico-type-blank"
                              che-aria-label-checkbox="Factory {{factoryItemCtrl.factory.originFactory.name}}"></che-list-item-checked>
+      <md-icon ng-hide="factoryItemCtrl.isSelectable"
+               md-font-icon="chefont cheico-type-{{factoryItemCtrl.factory.originFactory.project.type}} cheico-type-blank"></md-icon>
     </div>
     <div flex="40" layout="column" layout-align-gt-sm="center start" layout-align="center center"
          ng-click="factoryItemCtrl.redirectToFactoryDetails()">
@@ -32,7 +35,7 @@
           {{factoryItemCtrl.factory.originFactory.name}}
         </span>
       </div>
-      <div class="factory-id codenvy-hover">{{factoryItemCtrl.factory.originFactory.id}}</div>
+      <div class="factory-id-url codenvy-hover">{{factoryItemCtrl.factory.idURL ? factoryItemCtrl.factory.idURL : factoryItemCtrl.factory.originFactory.id}}</div>
     </div>
     <div flex="10" class="factory-details" layout-align="center center">
       <span tooltip="Created: {{factoryItemCtrl.factory.originFactory.creator.created | amDateFormat:'dddd, MMMM Do, YYYY'}}"
