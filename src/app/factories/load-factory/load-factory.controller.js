@@ -431,4 +431,12 @@ export class LoadFactoryCtrl {
     return '/ide/' + this.getWorkspace();
   }
 
+  backToDashboard() {
+    this.restoreMenuAndFooter();
+    this.$location.path('/');
+  }
+
+  downloadLogs() {
+    window.open('data:text/csv,' + encodeURIComponent(this.getLoadingSteps()[this.getCurrentProgressStep()].logs));
+  }
 }

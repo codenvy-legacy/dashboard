@@ -50,7 +50,7 @@
         <div class="che-loader-bottom-bar">
           <div layout="row" layout-align="center stretch" class="main-page">
             <div flex="50" layout="column" layout-align="start start">
-              <che-link ng-click="backToDashboard()" che-link-text="&larr; Back to Dashboard"
+              <che-link ng-click="loadFactoryCtrl.backToDashboard()" che-link-text="&larr; Back to Dashboard"
                         class="load-factory-back-link"></che-link>
             </div>
             <div flex="50">
@@ -60,7 +60,7 @@
                 <che-button-danger che-button-title="Retry"
                                    ng-click="loadFactoryCtrl.resetLoadFactoryInProgress()"></che-button-danger>
                 <che-link class="load-factory-download-link"
-                          ng-click="downloadLogs(loadFactoryCtrl.getLoadingSteps()[loadFactoryCtrl.getCurrentProgressStep()].logs)"
+                          ng-click="loadFactoryCtrl.downloadLogs()"
                           che-link-text="Problem? download logs"></che-link>
               </div>
             </div>
