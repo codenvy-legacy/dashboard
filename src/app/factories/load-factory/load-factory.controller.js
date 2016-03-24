@@ -437,6 +437,10 @@ export class LoadFactoryCtrl {
   }
 
   downloadLogs() {
-    window.open('data:text/csv,' + encodeURIComponent(this.getLoadingSteps()[this.getCurrentProgressStep()].logs));
+    let logs = '';
+    this.getLoadingSteps().forEach((step) => {
+      logs += step.logs + '\n';
+    });
+    window.open('data:text/csv,' + encodeURIComponent(logs));
   }
 }
